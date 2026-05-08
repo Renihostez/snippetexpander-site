@@ -623,6 +623,69 @@
       color: var(--accent-strong);
     }
 
+    /* Карточка «Создатель» */
+
+    .creator-card {
+      margin-top: 10px;
+      border-radius: 18px;
+      padding: 10px 11px;
+      background: rgba(255, 255, 255, 0.24);
+      border: 1px solid rgba(204, 214, 255, 0.95);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow:
+        0 14px 32px rgba(95, 123, 255, 0.35),
+        0 0 0 1px rgba(255, 255, 255, 0.9);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .creator-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #5f7bff, #ff99c2);
+      box-shadow:
+        0 8px 18px rgba(95, 123, 255, 0.6),
+        0 0 0 3px rgba(255, 255, 255, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-family: "Outfit", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .creator-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .creator-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+    }
+
+    .creator-name {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .creator-text {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .creator-text a {
+      color: var(--accent-strong);
+    }
+
     @media (max-width: 880px) {
       .content {
         grid-template-columns: minmax(0, 1fr);
@@ -800,14 +863,20 @@
               В профиле расширения видно, сколько шорткатов, когда был последний синк и как часто ты ими пользуешься.
             </p>
           </article>
-          <article class="bottom-chip">
-            <div class="bottom-tag">создатель</div>
-            <p class="bottom-text">
-              Программу сделал гений — Сметанин Даниил Сергеевич. tg:
+        </div>
+
+        <div class="creator-card">
+          <div class="creator-avatar">СД</div>
+          <div class="creator-body">
+            <div class="creator-label">создатель</div>
+            <div class="creator-name">Сметанин Даниил Сергеевич</div>
+            <p class="creator-text">
+              Программу сделал гений. tg:
               <a href="https://t.me/renihostez" target="_blank" rel="noopener noreferrer">@renihostez</a>
             </p>
-          </article>
+          </div>
         </div>
+
         <p class="footnote">
           Snippet Expander — маленький инструмент для тех, кто много пишет и не хочет чувствовать себя роботом.
         </p>
