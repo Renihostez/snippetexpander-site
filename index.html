@@ -5,12 +5,11 @@
   <title>Snippet Expander — шорткаты для автоответов</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Шрифты: заголовки — Outfit, текст — Inter -->
-  //fonts.googleapis.com">
-  //fonts.gstatic.com" crossorigin>
-  //fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap"
+  <!-- Google Fonts: Inter + Outfit -->
+  <link
     rel="stylesheet"
-  >
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap"
+  />
 
   <style>
     :root {
@@ -657,7 +656,6 @@
   <div class="video-bg">
     <video autoplay muted loop playsinline>
       <source src="background.mp4" type="video/mp4">
-      <!-- fallback если видео не загрузится -->
     </video>
   </div>
 
@@ -694,7 +692,7 @@
             <span class="hero-title-accent">Отвечай как бренд.</span>
           </h1>
           <p class="hero-subtitle">
-            Задай пару шорткатов — de>привет1</code>, de>оплата1</code>, de>сроки1</code> — и Snippet Expander превратит их в аккуратные, живые ответы в любых полях ввода.
+            Задай пару шорткатов — <code>привет1</code>, <code>оплата1</code>, <code>сроки1</code> — и Snippet Expander превратит их в аккуратные, живые ответы в любых полях ввода.
           </p>
           <div class="hero-actions">
             <a href="#" id="installBtn" class="btn btn-primary">
@@ -717,7 +715,7 @@
             <article class="hero-chip">
               <div class="hero-chip-label">шаг 2</div>
               <div class="hero-chip-title">Придумай короткие коды</div>
-              <p>Например, de>привет1</code>, de>оплата1</code>, de>бриф1</code> — так проще запомнить и набрать.</p>
+              <p>Например, <code>привет1</code>, <code>оплата1</code>, <code>бриф1</code> — так проще запомнить и набрать.</p>
             </article>
             <article class="hero-chip">
               <div class="hero-chip-label">шаг 3</div>
@@ -843,7 +841,7 @@
         'Здравствуйте!',
         'На связи агент Поддержки.',
         'Благодарим, что дождались нас! Ответ задержался из-за высокого спроса, но теперь всё внимание — вам.'
-      ].join('\\n');
+      ].join('\n');
 
       let timer = null;
 
