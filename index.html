@@ -4,23 +4,22 @@
   <meta charset="UTF-8" />
   <title>Snippet Expander — шорткаты для автоответов</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  //fonts.googleapis.com">
+  //fonts.gstatic.com" crossorigin>
+  //fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f5f3ff;
-      --bg-strong: #eae5ff;
-      --clay-surface: #fdfbff;
-      --clay-surface-strong: #ffffff;
-      --clay-shadow: #cdc6ff;
-      --clay-highlight: #ffffff;
-      --text: #201c3a;
-      --text-muted: #7a7695;
-      --accent: #6a5bff;
-      --accent-2: #ff8ac2;
-      --accent-soft: #ece8ff;
-      --radius-xl: 28px;
+      --bg: #05060c;
+      --bg-alt: #ffffff;
+      --accent: #ffde3b;
+      --accent-soft: #fffbcc;
+      --accent-2: #ff4f4f;
+      --accent-3: #4f7dff;
+      --border-strong: #05060c;
+      --text-main: #05060c;
+      --text-reverse: #f7f7f7;
+      --text-muted: #666777;
+      --radius: 18px;
       --radius-pill: 999px;
     }
 
@@ -33,705 +32,692 @@
     body {
       min-height: 100vh;
       font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 0% 0%, #ffe4f5 0%, transparent 55%),
-        radial-gradient(circle at 100% 0%, #dfebff 0%, transparent 55%),
-        linear-gradient(180deg, var(--bg) 0%, var(--bg-strong) 40%, var(--bg) 100%);
-      padding: 32px 20px 40px;
-      -webkit-font-smoothing: antialiased;
+      background: var(--bg);
+      color: var(--text-main);
       display: flex;
       justify-content: center;
       align-items: stretch;
+      padding: 16px;
+      -webkit-font-smoothing: antialiased;
     }
 
     a {
-      color: var(--accent);
       text-decoration: none;
+      color: inherit;
     }
 
-    .layout {
+    main.page {
       width: 100%;
-      max-width: 1120px;
-      min-height: calc(100vh - 64px);
+      max-width: 1200px;
+      min-height: calc(100vh - 32px);
+      background: var(--bg-alt);
+      border-radius: 24px;
+      border: 3px solid var(--border-strong);
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      grid-row-gap: 0;
+      overflow: hidden;
+    }
+
+    header.bar {
       display: flex;
-      flex-direction: column;
-      gap: 22px;
-      opacity: 0;
-      transform: translateY(10px);
-      animation: layout-in 0.5s ease-out forwards;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-bottom: 3px solid var(--border-strong);
+      background: var(--accent-soft);
     }
 
-    @keyframes layout-in {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .logo-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
     }
 
-    .row {
-      display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-      gap: 22px;
-    }
-
-    .row-bottom {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-      gap: 22px;
-      flex: 1;
-    }
-
-    .clay {
-      background: var(--clay-surface);
-      border-radius: var(--radius-xl);
-      box-shadow:
-        18px 18px 36px rgba(141, 127, 255, 0.3),
-        -10px -10px 26px #ffffff,
-        inset 0 0 0 0 rgba(255, 255, 255, 0.25);
-      border: 1px solid rgba(217, 207, 255, 0.8);
+    .logo-square {
+      width: 18px;
+      height: 18px;
+      background: var(--border-strong);
+      border-radius: 4px;
       position: relative;
       overflow: hidden;
     }
 
-    .clay::before {
+    .logo-square::before,
+    .logo-square::after {
       content: "";
       position: absolute;
-      inset: -40%;
-      background:
-        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.9), transparent 55%),
-        radial-gradient(circle at 100% 100%, rgba(210, 196, 255, 0.7), transparent 60%);
-      opacity: 0.7;
-      pointer-events: none;
+      inset: 3px;
+      border-radius: 3px;
+      border: 2px solid var(--accent);
     }
 
-    .clay-inner {
-      position: relative;
-      z-index: 1;
+    .logo-square::after {
+      inset: 6px;
+      border-color: var(--accent-2);
     }
 
-    /* HERO LEFT */
-
-    .hero-panel {
-      padding: 24px 24px 22px;
-    }
-
-    .hero-pill {
-      display: inline-flex;
+    .bar-right {
+      display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 5px 13px;
-      border-radius: var(--radius-pill);
-      background: #fefbff;
-      border: 1px solid rgba(217, 207, 255, 0.9);
+      gap: 10px;
       font-size: 11px;
-      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 14px;
-      box-shadow:
-        6px 6px 14px rgba(141, 127, 255, 0.25),
-        -4px -4px 10px #ffffff;
+      letter-spacing: 0.08em;
     }
 
-    .hero-pill-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 999px;
-      background: #35c27f;
-      box-shadow:
-        0 0 0 4px rgba(53, 194, 127, 0.3),
-        3px 3px 6px rgba(46, 142, 98, 0.5);
+    .bar-pill {
+      padding: 4px 8px;
+      border-radius: var(--radius-pill);
+      border: 2px solid var(--border-strong);
+      background: #ffffff;
     }
 
-    .hero-title {
-      font-size: 32px;
-      line-height: 1.15;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    .hero-title span {
+    .bar-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #23c46b;
+      margin-right: 4px;
       display: inline-block;
     }
 
-    .hero-title-gradient {
-      background: linear-gradient(135deg, #463be9, #6a5bff, #ff8ac2);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+    .bar-link {
+      padding: 4px 6px;
+      border-radius: 6px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: background 0.15s ease-out, transform 0.1s ease-out, border-color 0.15s ease-out;
     }
 
-    .hero-subtitle {
-      font-size: 14px;
-      color: var(--text-muted);
-      max-width: 430px;
-      margin-bottom: 18px;
+    .bar-link:hover {
+      background: var(--accent);
+      border-color: var(--border-strong);
+      transform: translateY(-1px);
     }
 
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+    /* MAIN GRID */
+
+    .content {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      border-bottom: 3px solid var(--border-strong);
+      min-height: 0;
+    }
+
+    .col {
+      border-right: 3px solid var(--border-strong);
+      padding: 20px 18px 18px;
+    }
+
+    .col:last-child {
+      border-right: none;
+    }
+
+    /* LEFT HERO */
+
+    .badge {
+      display: inline-flex;
       align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      border: 2px solid var(--border-strong);
+      background: #ffffff;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--border-strong);
+    }
+
+    .title {
+      font-size: 34px;
+      line-height: 1.1;
+      font-weight: 800;
+      text-transform: uppercase;
       margin-bottom: 10px;
     }
 
-    .hero-note {
-      font-size: 12px;
+    .title-highlight {
+      background: var(--accent);
+      padding: 2px 6px;
+      box-shadow: 4px 4px 0 var(--border-strong);
+      display: inline-block;
+      transform: rotate(-1deg);
+    }
+
+    .subtitle {
+      font-size: 14px;
       color: var(--text-muted);
-      font-style: italic;
+      max-width: 420px;
+      margin-bottom: 16px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
     }
 
     .btn {
       font: inherit;
-      border-radius: var(--radius-pill);
-      padding: 10px 18px;
+      border-radius: 10px;
+      padding: 10px 16px;
       font-size: 13px;
-      border: none;
+      border: 2px solid var(--border-strong);
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      white-space: nowrap;
+      gap: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
       transition:
-        transform 0.12s ease-out,
-        box-shadow 0.16s ease-out,
-        background 0.16s ease-out,
-        color 0.16s ease-out;
-      text-decoration: none;
-      position: relative;
-      overflow: hidden;
+        background 0.15s ease-out,
+        transform 0.1s ease-out,
+        box-shadow 0.15s ease-out;
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, #6a5bff, #ff8ac2);
-      color: #fff;
-      box-shadow:
-        0 12px 24px rgba(106, 91, 255, 0.55),
-        inset 0 0 0 0 rgba(255, 255, 255, 0.2);
-    }
-
-    .btn-primary::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.7), transparent 60%);
-      opacity: 0;
-      transition: opacity 0.2s ease-out;
+      background: var(--border-strong);
+      color: var(--text-reverse);
+      box-shadow: 4px 4px 0 var(--accent);
     }
 
     .btn-secondary {
-      background: #f7f3ff;
-      color: var(--text-muted);
-      box-shadow:
-        8px 8px 18px rgba(163, 152, 232, 0.3),
-        -6px -6px 14px #ffffff,
-        inset 0 0 0 0 rgba(255, 255, 255, 0.4);
+      background: #ffffff;
+      color: var(--border-strong);
+      box-shadow: 4px 4px 0 var(--border-strong);
     }
 
     .btn:hover {
-      transform: translateY(-1px);
-      box-shadow:
-        0 16px 32px rgba(106, 91, 255, 0.6),
-        inset 0 0 0 0 rgba(255, 255, 255, 0.3);
-    }
-
-    .btn-primary:hover::after {
-      opacity: 1;
+      transform: translate(-1px, -1px);
+      box-shadow: 6px 6px 0 var(--accent-3);
     }
 
     .btn:active {
-      transform: translateY(1px);
-      box-shadow:
-        0 8px 18px rgba(106, 91, 255, 0.5),
-        inset 0 0 0 0 rgba(0, 0, 0, 0.1);
+      transform: translate(1px, 1px);
+      box-shadow: 2px 2px 0 var(--accent-3);
     }
 
-    @keyframes install-pulse {
-      0%   { transform: translateY(0) scale(1); box-shadow: 0 12px 24px rgba(106, 91, 255, 0.55); }
-      50%  { transform: translateY(-1px) scale(1.03); box-shadow: 0 18px 40px rgba(106, 91, 255, 0.75); }
-      100% { transform: translateY(0) scale(1); box-shadow: 0 12px 24px rgba(106, 91, 255, 0.55); }
+    .hero-note {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
     }
 
-    .btn-primary.attention {
-      animation: install-pulse 0.9s ease-out;
+    .hero-note strong {
+      font-weight: 600;
+      color: var(--border-strong);
     }
 
-    /* HERO RIGHT — DEMO */
+    .hero-grid {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
 
-    .hero-demo {
-      padding: 20px 18px 18px;
+    .hero-card {
+      background: #ffffff;
+      border-radius: 14px;
+      border: 2px solid var(--border-strong);
+      padding: 10px 10px 9px;
+      font-size: 11px;
+      box-shadow: 4px 4px 0 var(--border-strong);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .hero-card-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+    }
+
+    .hero-card-main {
+      font-weight: 600;
+    }
+
+    /* RIGHT DEMO */
+
+    .demo-panel {
+      height: 100%;
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
 
-    .hero-demo-header {
+    .demo-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    .hero-demo-title {
+    .demo-title {
       font-size: 12px;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-muted);
+      letter-spacing: 0.08em;
     }
 
-    .hero-demo-pill {
+    .demo-pill {
       font-size: 11px;
-      padding: 4px 10px;
+      padding: 4px 8px;
       border-radius: var(--radius-pill);
-      background: #f6f1ff;
-      box-shadow:
-        6px 6px 14px rgba(163, 152, 232, 0.35),
-        -4px -4px 10px #ffffff,
-        inset 0 0 0 0 rgba(255, 255, 255, 0.5);
-      color: var(--accent);
+      border: 2px solid var(--border-strong);
+      background: var(--accent-soft);
     }
 
-    .hero-demo-body {
-      border-radius: 20px;
+    .demo-box {
+      margin-top: 10px;
+      border-radius: 16px;
+      border: 2px solid var(--border-strong);
+      box-shadow: 6px 6px 0 var(--border-strong);
       padding: 10px 10px 9px;
-      background: #fdfbff;
-      box-shadow:
-        inset 6px 6px 10px rgba(217, 207, 255, 0.7),
-        inset -6px -6px 10px rgba(255, 255, 255, 0.95);
-      border: 1px solid rgba(225, 218, 255, 0.9);
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
       font-size: 12px;
-      color: var(--text-muted);
     }
 
-    .hero-demo-row {
+    .demo-row {
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 8px;
+      gap: 6px;
     }
 
-    .shortcut-chip {
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: linear-gradient(145deg, #f2ecff, #ffffff);
-      border: 1px solid rgba(204, 195, 255, 0.9);
-      box-shadow:
-        5px 5px 10px rgba(165, 152, 232, 0.45),
-        -3px -3px 8px #ffffff;
-      color: var(--accent);
+    .chip {
+      padding: 4px 8px;
+      border-radius: var(--radius-pill);
+      border: 2px solid var(--border-strong);
+      background: var(--accent-soft);
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 12px;
+      font-size: 11px;
     }
 
-    .hero-demo-input {
+    .demo-input {
       flex: 1;
-      border-radius: 999px;
-      padding: 7px 12px;
-      border: none;
-      background: linear-gradient(145deg, #f3ecff, #ffffff);
-      box-shadow:
-        inset 4px 4px 6px rgba(210, 200, 255, 0.9),
-        inset -4px -4px 6px rgba(255, 255, 255, 0.9);
-      color: var(--text);
+      border-radius: 10px;
+      border: 2px solid var(--border-strong);
+      padding: 6px 8px;
       font: inherit;
       font-size: 12px;
       outline: none;
     }
 
-    .hero-demo-input::placeholder {
+    .demo-input::placeholder {
       color: var(--text-muted);
     }
 
-    .hero-demo-result {
-      border-radius: 18px;
-      padding: 8px 9px;
-      background: linear-gradient(145deg, #f3ecff, #ffffff);
-      box-shadow:
-        inset 5px 5px 9px rgba(210, 200, 255, 0.9),
-        inset -5px -5px 9px rgba(255, 255, 255, 0.96);
-      border: 1px solid rgba(225, 218, 255, 0.9);
+    .demo-result {
+      border-radius: 12px;
+      border: 2px dashed var(--border-strong);
+      padding: 6px 8px;
+      background: #f5f5f7;
+      min-height: 52px;
       white-space: pre-wrap;
       transition:
-        opacity 0.25s ease-out,
-        transform 0.25s ease-out;
-      opacity: 0.9;
-      transform: translateY(2px);
+        background 0.15s ease-out,
+        transform 0.15s ease-out;
     }
 
-    /* SECTIONS */
-
-    .section {
-      border-radius: var(--radius-xl);
-      padding: 20px 20px 18px;
+    .demo-note {
+      font-size: 11px;
+      color: var(--text-muted);
     }
 
-    .section-title {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 6px;
-      display: inline-flex;
-      align-items: center;
+    /* BOTTOM STRIP */
+
+    footer.strip {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      min-height: 120px;
+    }
+
+    .strip-col {
+      border-right: 3px solid var(--border-strong);
+      padding: 12px 16px 14px;
+      display: flex;
+      flex-direction: column;
       gap: 8px;
     }
 
-    .section-title-pill {
-      font-size: 11px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: #f7f2ff;
-      border: 1px solid rgba(217, 207, 255, 0.9);
-      box-shadow:
-        5px 5px 12px rgba(163, 152, 232, 0.3),
-        -4px -4px 10px #ffffff;
-      color: var(--accent);
+    .strip-col:last-child {
+      border-right: none;
     }
 
-    .section-subtitle {
+    .strip-title {
       font-size: 13px;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 12px;
-    }
-
-    .feature-card {
-      border-radius: 22px;
-      padding: 11px 12px 10px;
-      background: #fdfbff;
-      border: 1px solid rgba(217, 207, 255, 0.9);
-      box-shadow:
-        10px 10px 20px rgba(163, 152, 232, 0.4),
-        -7px -7px 18px #ffffff,
-        inset 0 0 0 0 rgba(255, 255, 255, 0.6);
-      font-size: 13px;
-      transition:
-        transform 0.12s ease-out,
-        box-shadow 0.18s ease-out;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-2px);
-      box-shadow:
-        12px 12px 24px rgba(163, 152, 232, 0.6),
-        -8px -8px 20px #ffffff,
-        inset 0 0 0 0 rgba(255, 255, 255, 0.7);
-    }
-
-    .feature-tag {
-      font-size: 11px;
-      padding: 3px 7px;
-      border-radius: 999px;
-      background: #f8f2ff;
-      border: 1px solid rgba(217, 207, 255, 0.9);
-      color: var(--accent);
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      margin-bottom: 6px;
-    }
-
-    .feature-title {
-      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
       margin-bottom: 4px;
     }
 
-    .feature-text {
+    .strip-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+      font-size: 11px;
+    }
+
+    .strip-card {
+      border-radius: 10px;
+      border: 2px solid var(--border-strong);
+      padding: 6px 7px;
+      background: #ffffff;
+    }
+
+    .strip-pill {
+      display: inline-block;
+      padding: 1px 6px;
+      border-radius: 999px;
+      border: 2px solid var(--border-strong);
+      font-size: 10px;
+      text-transform: uppercase;
+      margin-right: 4px;
+    }
+
+    .strip-text {
+      font-size: 11px;
       color: var(--text-muted);
     }
 
     .footnote {
-      font-size: 11px;
+      font-size: 10px;
       color: var(--text-muted);
-      text-align: center;
-      margin-top: 8px;
+      margin-top: auto;
     }
 
-    /* SCROLL-FADE для секций */
-
-    .clay.section-fade {
-      opacity: 0;
-      transform: translateY(12px);
-      transition:
-        opacity 0.45s ease-out,
-        transform 0.45s ease-out;
+    .footnote a {
+      text-decoration: underline;
     }
 
-    .clay.section-fade.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    /* RESPONSIVE */
 
     @media (max-width: 960px) {
-      .row,
-      .row-bottom {
+      .content {
         grid-template-columns: minmax(0, 1fr);
+      }
+      .col {
+        border-right: none;
+        border-bottom: 3px solid var(--border-strong);
+      }
+      .col:last-child {
+        border-bottom: none;
+      }
+      footer.strip {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .strip-col {
+        border-right: none;
+        border-top: 3px solid var(--border-strong);
       }
     }
 
     @media (max-width: 640px) {
       body {
-        padding: 18px 12px 28px;
+        padding: 10px;
       }
-      .hero-title {
+      main.page {
+        border-radius: 18px;
+      }
+      .title {
         font-size: 26px;
       }
-      .hero-panel {
-        padding: 18px 18px 14px;
+      .hero-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
-      .hero-demo {
-        padding: 16px 16px 14px;
+      .strip-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
   </style>
 </head>
 <body>
-  <main class="layout">
-    <div class="row">
-      <!-- HERO LEFT -->
-      <section class="clay hero-panel">
-        <div class="clay-inner">
-          <div class="hero-pill">
-            <span class="hero-pill-dot"></span>
-            <span>SNIPPET EXPANDER</span>
-            <span>CLAY‑UI</span>
-          </div>
-          <h1 class="hero-title">
-            Печатай коротко.<br />
-            <span class="hero-title-gradient">Отвечай как человек.</span>
-          </h1>
-          <p class="hero-subtitle">
-            Придумай шорткат — например, <code>привет1</code> — и разворачивай его в длинный, вежливый ответ в один удар по клавиатуре.
-          </p>
-          <div class="hero-actions">
-            <a href="#" id="installBtn" class="btn btn-primary">
-              Установить в Chrome
-            </a>
-            <a href="#how" class="btn btn-secondary">
-              Как это работает
-            </a>
-          </div>
-          <p class="hero-note">
-            Подходит для переписок в поддержке, фрилансе, продажах и повседневных чатах.
-          </p>
-        </div>
-      </section>
+  <main class="page">
+    <header class="bar">
+      <div class="logo-mark">
+        <span class="logo-square"></span>
+        <span>Snippet&nbsp;Expander</span>
+      </div>
+      <div class="bar-right">
+        <span class="bar-pill">
+          <span class="bar-dot"></span>
+          live demo
+        </span>
+        <button class="bar-link" type="button" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">
+          как это работает
+        </button>
+      </div>
+    </header>
 
-      <!-- HERO RIGHT DEMO -->
-      <aside class="clay hero-demo">
-        <div class="clay-inner">
-          <div class="hero-demo-header">
-            <div class="hero-demo-title">Мини‑демо шортката</div>
-            <div class="hero-demo-pill">привет1 → готовый текст</div>
+    <section class="content">
+      <div class="col">
+        <div class="badge">
+          <span class="badge-dot"></span>
+          <span>шорткаты для автоответов</span>
+        </div>
+        <h1 class="title">
+          Печатай коротко.<br />
+          <span class="title-highlight">Отвечай развёрнуто.</span>
+        </h1>
+        <p class="subtitle">
+          Придумай шорткат — например, de>привет1</code> — и разворачивай его в длинный, аккуратный ответ в любом поле ввода: чат, почта, CRM.
+        </p>
+        <div class="actions">
+          <a href="#" id="installBtn" class="btn btn-primary">
+            Установить в Chrome
+          </a>
+          <a href="#how" class="btn btn-secondary">
+            Подробнее
+          </a>
+        </div>
+        <p class="hero-note">
+          <strong>Работает везде:</strong> поля ввода, textarea, rich‑text‑редакторы.
+        </p>
+
+        <div class="hero-grid">
+          <div class="hero-card">
+            <div class="hero-card-label">шаг 1</div>
+            <div class="hero-card-main">Создай шорткат</div>
+            <p>Например, de>спасибо1</code> с текстом «Спасибо за обращение…».</p>
           </div>
-          <div class="hero-demo-body">
-            <div class="hero-demo-row">
-              <span class="shortcut-chip">привет1</span>
+          <div class="hero-card">
+            <div class="hero-card-label">шаг 2</div>
+            <div class="hero-card-main">Напиши его в чате</div>
+            <p>Пиши шорткат как обычное слово — расширение следит только за концом строки.</p>
+          </div>
+          <div class="hero-card">
+            <div class="hero-card-label">шаг 3</div>
+            <div class="hero-card-main">Получай готовый ответ</div>
+            <p>Текст разворачивается, курсор остаётся в конце — можно дописать пару фраз.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="demo-panel">
+          <div class="demo-header">
+            <div class="demo-title">мини‑демо шортката</div>
+            <div class="demo-pill">привет1 → ответ</div>
+          </div>
+          <div class="demo-box">
+            <div class="demo-row">
+              <span class="chip">привет1</span>
               <input
                 id="demoInput"
-                class="hero-demo-input"
+                class="demo-input"
                 type="text"
                 placeholder="Напечатай: привет1"
               />
             </div>
-            <div id="demoResult" class="hero-demo-result">
+            <div id="demoResult" class="demo-result">
               Шаблон развернётся здесь — попробуй набрать шорткат.
+            </div>
+            <p class="demo-note">
+              Это демо. В реальном расширении шорткаты работают в любых полях ввода в браузере.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="strip">
+      <div class="strip-col" id="how">
+        <div class="strip-title">Для кого это удобно</div>
+        <div class="strip-grid">
+          <div class="strip-card">
+            <span class="strip-pill">поддержка</span>
+            <div class="strip-text">
+              Приветствия, «спасибо за ожидание», инструкции — больше не нужно печатать заново.
+            </div>
+          </div>
+          <div class="strip-card">
+            <span class="strip-pill">фриланс</span>
+            <div class="strip-text">
+              Брифы, условия, оплата, дедлайны — одним шорткатом вместо копипасты из заметок.
+            </div>
+          </div>
+          <div class="strip-card">
+            <span class="strip-pill">продажи</span>
+            <div class="strip-text">
+              Быстрые ответы на типовые вопросы, больше времени на живой диалог.
             </div>
           </div>
         </div>
-      </aside>
-    </div>
+      </div>
 
-    <div class="row-bottom">
-      <!-- HOW IT WORKS -->
-      <section id="how" class="clay section section-fade">
-        <div class="clay-inner">
-          <h2 class="section-title">
-            Как это работает
-            <span class="section-title-pill">3 простых шага</span>
-          </h2>
-          <p class="section-subtitle">
-            Задаёшь шаблон один раз — потом используешь его многократно, как будто это встроенная команда браузера.
-          </p>
-          <div class="features-grid">
-            <article class="feature-card">
-              <div class="feature-tag">шаг 1</div>
-              <div class="feature-title">Создаёшь шорткат</div>
-              <p class="feature-text">
-                В настройках расширения задаёшь, что <code>привет1</code> — это приветствие, а <code>спасибо1</code> — аккуратное завершение диалога.
-              </p>
-            </article>
-            <article class="feature-card">
-              <div class="feature-tag">шаг 2</div>
-              <div class="feature-title">Пишешь его в поле</div>
-              <p class="feature-text">
-                В любом поле ввода печатаешь шорткат как обычное слово. Расширение следит только за последним словом, не ломая остальной текст.
-              </p>
-            </article>
-            <article class="feature-card">
-              <div class="feature-tag">шаг 3</div>
-              <div class="feature-title">Получаешь готовый текст</div>
-              <p class="feature-text">
-                Шорткат автоматически разворачивается в заранее подготовленный ответ, а курсор остаётся после текста — можно дописать пару фраз.
-              </p>
-            </article>
+      <div class="strip-col">
+        <div class="strip-title">Приватность и автор</div>
+        <div class="strip-grid">
+          <div class="strip-card">
+            <span class="strip-pill">данные</span>
+            <div class="strip-text">
+              Шаблоны живут в браузере. Синхронизация по Google — по желанию, а не по умолчанию.
+            </div>
+          </div>
+          <div class="strip-card">
+            <span class="strip-pill">контроль</span>
+            <div class="strip-text">
+              Видно, сколько шорткатов, когда последний синк и как часто они реально используются.
+            </div>
+          </div>
+          <div class="strip-card">
+            <span class="strip-pill">создатель</span>
+            <div class="strip-text">
+              Программу сделал гений — Сметанин Даниил Сергеевич. tg:
+              <a href="https://t.me/renihostez" target="_blank" rel="noopener noreferrer">@renihostez</a>
+            </div>
           </div>
         </div>
-      </section>
-
-      <!-- USE CASES / PRIVACY -->
-      <section class="clay section section-fade">
-        <div class="clay-inner">
-          <h2 class="section-title">
-            Для кого и зачем
-            <span class="section-title-pill">и немного приватности</span>
-          </h2>
-          <p class="section-subtitle">
-            Всё, что ты отвечаешь чаще одного раза, можно превратить в «глиняную кнопку» — мягкий, но очень быстрый шорткат.
-          </p>
-          <div class="features-grid">
-            <article class="feature-card">
-              <div class="feature-tag">поддержка</div>
-              <div class="feature-title">Ответы без конвейера</div>
-              <p class="feature-text">
-                Типовые приветствия, «спасибо за обращение» и пояснения по срокам превращаются в пару символов, а тон всё равно остаётся живым и человеческим.
-              </p>
-            </article>
-            <article class="feature-card">
-              <div class="feature-tag">фриланс</div>
-              <div class="feature-title">Брифы и условия</div>
-              <p class="feature-text">
-                Повторяющиеся сообщения про формат работы, оплату и дедлайны отправляются одним шорткатом, вместо копипасты из заметок.
-              </p>
-            </article>
-            <article class="feature-card">
-              <div class="feature-tag">приватность</div>
-              <div class="feature-title">Шаблоны у тебя, не у нас</div>
-              <p class="feature-text">
-                Тексты живут в твоём браузере. Синхронизация по Google — опциональная штука, только если ты сам её включишь в расширении.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <p class="footnote">
-      Программу сделал гений — Сметанин Даниил Сергеевич. tg:
-      <a href="https://t.me/renihostez" target="_blank" rel="noopener noreferrer">@renihostez</a>
-    </p>
+      </div>
+    </footer>
   </main>
 
   <script>
-    // Пульсация clay‑кнопки установки
+    // Пульсация кнопки "Установить"
     (function () {
-      const installBtn = document.getElementById('installBtn');
-      if (!installBtn) return;
+      const btn = document.getElementById('installBtn');
+      if (!btn) return;
 
       function pulse() {
-        installBtn.classList.remove('attention');
-        void installBtn.offsetWidth;
-        installBtn.classList.add('attention');
+        btn.classList.remove('attention');
+        void btn.offsetWidth;
+        btn.classList.add('attention');
       }
+
+      const css = document.createElement('style');
+      css.textContent = `
+        .btn-primary.attention {
+          animation: pulse-btn 0.9s ease-out;
+        }
+        @keyframes pulse-btn {
+          0%   { transform: translateY(0) scale(1); box-shadow: 4px 4px 0 #ffde3b; }
+          50%  { transform: translateY(-1px) scale(1.03); box-shadow: 8px 8px 0 #4f7dff; }
+          100% { transform: translateY(0) scale(1); box-shadow: 4px 4px 0 #ffde3b; }
+        }
+      `;
+      document.head.appendChild(css);
 
       setInterval(pulse, 9000);
     })();
 
-    // Плавный скролл к "Как это работает"
+    // Демо: развёртывание привет1
     (function () {
-      const link = document.querySelector('a[href="#how"]');
-      const howSection = document.getElementById('how');
-      if (!link || !howSection) return;
-
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        howSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    })();
-
-    // Демо: печать шортката в clay‑карточке
-    (function () {
-      const demoInput = document.getElementById('demoInput');
-      const demoResult = document.getElementById('demoResult');
-      if (!demoInput || !demoResult) return;
+      const input = document.getElementById('demoInput');
+      const result = document.getElementById('demoResult');
+      if (!input || !result) return;
 
       const shortcut = 'привет1';
       const expandedText = [
         'Здравствуйте!',
         'На связи агент Поддержки.',
         'Благодарим, что дождались нас! Ответ задержался из-за высокого спроса, но теперь всё внимание — вам.'
-      ].join('\n');
+      ].join('\\n');
 
-      let typingTimer = null;
+      let timer = null;
 
-      function typeShortcutLoop() {
+      function typeLoop() {
         let idx = 0;
-        demoInput.value = '';
-        demoResult.textContent = 'Шаблон развернётся здесь — смотри демо.';
+        input.value = '';
+        result.textContent = 'Шаблон развернётся здесь — смотри демо.';
 
         function step() {
           if (idx <= shortcut.length) {
-            demoInput.value = shortcut.slice(0, idx);
+            input.value = shortcut.slice(0, idx);
             idx += 1;
-            typingTimer = setTimeout(step, 120);
+            timer = setTimeout(step, 120);
           } else {
             setTimeout(() => {
-              demoInput.value = '';
-              demoResult.textContent = expandedText;
-              demoResult.style.opacity = '1';
-              demoResult.style.transform = 'translateY(0)';
+              input.value = '';
+              result.textContent = expandedText;
+              result.style.background = '#fff8d0';
+              result.style.transform = 'translateY(-1px)';
             }, 260);
-            setTimeout(typeShortcutLoop, 3800);
+            setTimeout(() => {
+              result.style.background = '#f5f5f7';
+              result.style.transform = 'translateY(0)';
+              setTimeout(typeLoop, 3500);
+            }, 2300);
           }
         }
 
         step();
       }
 
-      window.addEventListener('load', () => {
-        setTimeout(typeShortcutLoop, 800);
-      });
+      window.addEventListener('load', () => setTimeout(typeLoop, 800));
 
-      demoInput.addEventListener('input', () => {
-        if (typingTimer) {
-          clearTimeout(typingTimer);
-          typingTimer = null;
+      input.addEventListener('input', () => {
+        if (timer) {
+          clearTimeout(timer);
+          timer = null;
         }
-        const value = demoInput.value.trim();
+        const value = input.value.trim();
         if (value === shortcut) {
-          demoResult.textContent = expandedText;
-          demoResult.style.opacity = '1';
-          demoResult.style.transform = 'translateY(0)';
+          result.textContent = expandedText;
+          result.style.background = '#fff8d0';
+          result.style.transform = 'translateY(-1px)';
         } else if (!value) {
-          demoResult.textContent = 'Шаблон развернётся здесь — попробуй набрать шорткат.';
-          demoResult.style.opacity = '0.9';
-          demoResult.style.transform = 'translateY(2px)';
+          result.textContent = 'Шаблон развернётся здесь — попробуй набрать шорткат.';
+          result.style.background = '#f5f5f7';
+          result.style.transform = 'translateY(0)';
         }
       });
-    })();
-
-    // Scroll‑анимация clay‑секций
-    (function () {
-      const sections = Array.from(document.querySelectorAll('.section-fade'));
-      if (!('IntersectionObserver' in window) || !sections.length) return;
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('visible');
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.12 }
-      );
-
-      sections.forEach((section) => observer.observe(section));
     })();
   </script>
 </body>
