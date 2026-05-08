@@ -5,11 +5,11 @@
   <title>Snippet Expander — шорткаты для автоответов</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Шрифт Inter -->
+  <!-- Шрифты: заголовки — Outfit, текст — Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap"
     rel="stylesheet"
   >
 
@@ -27,7 +27,7 @@
       --glass-bg: rgba(255, 255, 255, 0.18);
       --glass-border: rgba(255, 255, 255, 0.65);
 
-      --text: #1c1b2b;
+      --text: #191829;
       --text-muted: #7c7d96;
       --accent: #5f7bff;
       --accent-strong: #3142c3;
@@ -172,6 +172,7 @@
     }
 
     .logo-text {
+      font-family: "Outfit", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-size: 14px;
       font-weight: 600;
       letter-spacing: 0.03em;
@@ -247,6 +248,7 @@
     }
 
     .hero-title {
+      font-family: "Outfit", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-size: 30px;
       line-height: 1.15;
       font-weight: 700;
@@ -292,9 +294,11 @@
       white-space: nowrap;
       transition:
         background 0.18s ease-out,
-        transform 0.1s ease-out,
+        transform 0.12s ease-out,
         box-shadow 0.18s ease-out,
         color 0.18s ease-out;
+      position: relative;
+      overflow: hidden;
     }
 
     .btn-primary {
@@ -303,6 +307,16 @@
       box-shadow:
         0 14px 30px rgba(95, 123, 255, 0.55),
         0 0 0 1px rgba(255, 255, 255, 0.7);
+    }
+
+    .btn-primary::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 0% 0%, rgba(255,255,255,0.7), transparent 55%);
+      opacity: 0;
+      transition: opacity 0.2s ease-out;
+      pointer-events: none;
     }
 
     .btn-secondary {
@@ -318,6 +332,10 @@
       box-shadow:
         0 18px 40px rgba(95, 123, 255, 0.65),
         0 0 0 1px rgba(255, 255, 255, 0.8);
+    }
+
+    .btn-primary:hover::after {
+      opacity: 1;
     }
 
     .btn:active {
@@ -360,6 +378,14 @@
         inset 3px 3px 8px rgba(255, 255, 255, 0.9);
       padding: 9px 10px 8px;
       font-size: 12px;
+      transition: transform 0.16s ease-out, box-shadow 0.18s ease-out;
+    }
+
+    .hero-chip:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        10px 12px 20px rgba(150, 180, 255, 0.6),
+        -7px -9px 16px rgba(255, 255, 255, 0.96);
     }
 
     .hero-chip-label {
@@ -452,7 +478,7 @@
       outline: none;
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
-      transition: border-color 0.18s ease-out, box-shadow 0.18s ease-out, background 0.18s ease-out;
+      transition: border-color 0.18s ease-out, box-shadow 0.18s ease-out, background 0.18s ease-out, transform 0.16s ease-out;
     }
 
     .demo-input::placeholder {
@@ -463,6 +489,7 @@
       border-color: var(--accent);
       box-shadow: 0 0 0 1px rgba(95, 123, 255, 0.5);
       background: rgba(255, 255, 255, 1);
+      transform: translateY(-1px);
     }
 
     .demo-result {
@@ -507,6 +534,7 @@
     }
 
     .bottom-title {
+      font-family: "Outfit", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-size: 14px;
       font-weight: 600;
       margin-bottom: 4px;
@@ -529,6 +557,14 @@
       background: #f8f7ff;
       border: 1px solid rgba(204, 214, 255, 0.9);
       padding: 7px 8px;
+      transition: transform 0.16s ease-out, box-shadow 0.18s ease-out;
+    }
+
+    .bottom-chip:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        10px 12px 20px rgba(150, 180, 255, 0.6),
+        -7px -9px 16px rgba(255, 255, 255, 0.96);
     }
 
     .bottom-tag {
@@ -614,39 +650,39 @@
             <span>шорткаты для автоответов</span>
           </div>
           <h1 class="hero-title">
-            Печатай коротко.<br />
-            <span class="hero-title-accent">Отвечай развёрнуто.</span>
+            Печатай кратко.<br />
+            <span class="hero-title-accent">Отвечай как бренд.</span>
           </h1>
           <p class="hero-subtitle">
-            Придумай шорткат — например, <code>привет1</code> — и разворачивай его в длинный, аккуратный ответ в любом поле ввода: чат, почта, CRM.
+            Задай пару шорткатов — <code>привет1</code>, <code>оплата1</code>, <code>сроки1</code> — и Snippet Expander превратит их в аккуратные, живые ответы в любых полях ввода.
           </p>
           <div class="hero-actions">
             <a href="#" id="installBtn" class="btn btn-primary">
               Установить в Chrome
             </a>
             <a href="#how" class="btn btn-secondary">
-              Как это работает
+              Посмотреть сценарии
             </a>
           </div>
           <p class="hero-note">
-            Работает с обычными полями, textarea и rich‑text‑редакторами (contenteditable).
+            Расширение не генерирует текст за тебя — оно просто ускоряет твои уже продуманные ответы.
           </p>
 
           <div class="hero-grid">
             <article class="hero-chip">
               <div class="hero-chip-label">шаг 1</div>
-              <div class="hero-chip-title">Создаёшь шорткат</div>
-              <p>Например, <code>спасибо1</code> с готовым текстом благодарности.</p>
+              <div class="hero-chip-title">Собери свои ответы</div>
+              <p>Приветствия, условия, частые вопросы — всё, что повторяется, превращается в шорткаты.</p>
             </article>
             <article class="hero-chip">
               <div class="hero-chip-label">шаг 2</div>
-              <div class="hero-chip-title">Пишешь его в чате</div>
-              <p>Печатай шорткат как слово — расширение смотрит только на последнее.</p>
+              <div class="hero-chip-title">Придумай короткие коды</div>
+              <p>Например, <code>привет1</code>, <code>оплата1</code>, <code>бриф1</code> — так проще запомнить и набрать.</p>
             </article>
             <article class="hero-chip">
               <div class="hero-chip-label">шаг 3</div>
-              <div class="hero-chip-title">Получаешь ответ</div>
-              <p>Шорткат разворачивается, курсор остаётся в конце — можно дописать пару фраз.</p>
+              <div class="hero-chip-title">Печатай их в чатах</div>
+              <p>Расширение отслеживает последнее слово и разворачивает его в шаблон. Остальной текст не трогает.</p>
             </article>
           </div>
         </div>
@@ -657,7 +693,7 @@
         <div class="inner">
           <div class="demo-header">
             <div class="demo-title">мини‑демо шортката</div>
-            <div class="demo-pill">привет1 → ответ</div>
+            <div class="demo-pill">привет1 → готовый ответ</div>
           </div>
           <div class="demo-box">
             <div class="demo-row">
@@ -673,7 +709,7 @@
               Шаблон развернётся здесь — попробуй набрать шорткат.
             </div>
             <p class="demo-note">
-              В расширении шорткаты работают во всех полях ввода в браузере, а не только в этом демо.
+              В реальном расширении шорткаты работают в чатах, почте, CRM и любых веб‑формах.
             </p>
           </div>
         </div>
@@ -682,27 +718,27 @@
 
     <section class="bottom" id="how">
       <div class="bottom-card">
-        <h2 class="bottom-title">Для кого это удобно</h2>
+        <h2 class="bottom-title">Где экономишь время</h2>
         <p class="bottom-sub">
-          Всё, что ты отвечаешь чаще одного раза, можно превратить в мягкий clay‑шорткат.
+          Любой повторяющийся ответ можно превратить в один шорткат — особенно полезно там, где много переписки.
         </p>
         <div class="bottom-grid">
           <article class="bottom-chip">
             <div class="bottom-tag">поддержка</div>
             <p class="bottom-text">
-              Приветствия, «спасибо за ожидание», инструкции по срокам — без копипасты и ручного набора.
+              Приветствия, «спасибо за ожидание», инструкции по шагам — отвечаешь быстро, но не теряешь человечность.
             </p>
           </article>
           <article class="bottom-chip">
             <div class="bottom-tag">фриланс</div>
             <p class="bottom-text">
-              Условия работы, оплата, дедлайны — одним шорткатом вместо заготовок в заметках.
+              Условия работы, оплата, дедлайны и брифы — одним шорткатом вместо поиска текстов в заметках.
             </p>
           </article>
           <article class="bottom-chip">
             <div class="bottom-tag">продажи</div>
             <p class="bottom-text">
-              Быстрые ответы на типовые вопросы, больше времени на живой диалог с клиентом.
+              Типовые ответы про цену, доставку и гарантии уходят за секунды, а на разговор остаётся больше времени.
             </p>
           </article>
         </div>
@@ -711,19 +747,19 @@
       <div class="bottom-card">
         <h2 class="bottom-title">Приватность и автор</h2>
         <p class="bottom-sub">
-          Snippet Expander не придумывает текст за тебя — он только подставляет твои шаблоны.
+          Snippet Expander не читает твои переписки — он только подставляет текст, который ты заранее придумал.
         </p>
         <div class="bottom-grid">
           <article class="bottom-chip">
             <div class="bottom-tag">данные</div>
             <p class="bottom-text">
-              Шаблоны живут в браузере. Синхронизация по Google — опция, а не обязанность.
+              Шаблоны хранятся локально в браузере. Синхронизация по Google включается отдельно, если она вообще нужна.
             </p>
           </article>
           <article class="bottom-chip">
             <div class="bottom-tag">контроль</div>
             <p class="bottom-text">
-              В профиле видно, сколько шорткатов, когда последний синк и как часто они используются.
+              В профиле расширения видно, сколько шорткатов, когда был последний синк и как часто ты ими пользуешься.
             </p>
           </article>
           <article class="bottom-chip">
@@ -735,7 +771,7 @@
           </article>
         </div>
         <p class="footnote">
-          Snippet Expander — экспериментальный расширитель текста для тех, кто устал писать одно и то же.
+          Snippet Expander — маленький инструмент для тех, кто много пишет и не хочет чувствовать себя роботом.
         </p>
       </div>
     </section>
