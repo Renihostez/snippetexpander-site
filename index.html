@@ -9,16 +9,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #05070b;
-      --surface: rgba(15, 18, 32, 0.96);
-      --surface-soft: rgba(20, 24, 46, 0.96);
-      --border: rgba(173, 182, 235, 0.4);
-      --text: #f4f2ec;
-      --text-muted: #c5c1b9;
-      --accent: #42b3c3;
-      --accent-strong: #7fd6e3;
-      --accent-pink: #f6a9ff;
-      --radius-xl: 24px;
+      --bg: #f5f4ff;
+      --bg-accent: #e9f2ff;
+      --surface: rgba(255, 255, 255, 0.92);
+      --surface-strong: #ffffff;
+      --surface-soft: rgba(255, 255, 255, 0.86);
+      --border: rgba(206, 210, 230, 0.8);
+      --text: #191821;
+      --text-muted: #6e7080;
+      --accent: #4f6bff;
+      --accent-soft: rgba(79, 107, 255, 0.08);
+      --accent-strong: #2944d6;
+      --accent-pink: #ff7fd5;
+      --radius-xl: 26px;
       --radius-pill: 999px;
     }
 
@@ -33,38 +36,67 @@
       font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at 10% 0%, #122034 0%, transparent 55%),
-        radial-gradient(circle at 90% 90%, #24122f 0%, transparent 55%),
-        linear-gradient(135deg, #050610, #080911);
+        radial-gradient(circle at 10% 0%, #ffe8f5 0%, transparent 55%),
+        radial-gradient(circle at 100% 0%, #e1f0ff 0%, transparent 55%),
+        linear-gradient(180deg, #f5f4ff 0%, #edf3ff 35%, #fdfbff 100%);
       padding: 32px 20px 40px;
+      -webkit-font-smoothing: antialiased;
     }
 
     a {
       color: var(--accent-strong);
+      text-decoration: none;
     }
 
     .layout {
       max-width: 1040px;
       margin: 0 auto;
+      animation: fade-in-body 0.5s ease-out forwards;
+      opacity: 0;
+      transform: translateY(6px);
     }
 
+    @keyframes fade-in-body {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* HERO */
+
     .hero {
+      position: relative;
       border-radius: 32px;
       border: 1px solid var(--border);
-      background: radial-gradient(circle at 0% 0%, rgba(143,162,255,0.28), transparent 60%),
-                  radial-gradient(circle at 100% 100%, rgba(66,179,195,0.32), transparent 60%),
-                  var(--surface);
-      box-shadow: 0 32px 80px rgba(0,0,0,0.8);
-      padding: 24px 26px 24px;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.9), transparent 60%),
+        radial-gradient(circle at 100% 0%, rgba(211, 225, 255, 0.7), transparent 60%),
+        var(--surface-strong);
+      box-shadow:
+        0 26px 70px rgba(45, 58, 105, 0.22),
+        0 0 0 1px rgba(255, 255, 255, 0.8);
+      padding: 24px 26px 22px;
       display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
       gap: 26px;
-      margin-bottom: 28px;
-      position: relative;
+      margin-bottom: 26px;
       overflow: hidden;
     }
 
-    .hero-left {
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(121, 152, 255, 0.26), transparent 60%),
+        radial-gradient(circle at 100% 100%, rgba(255, 165, 214, 0.18), transparent 60%);
+      opacity: 0.65;
+      pointer-events: none;
+    }
+
+    .hero-left,
+    .hero-right {
       position: relative;
       z-index: 1;
     }
@@ -75,8 +107,8 @@
       gap: 8px;
       padding: 4px 12px;
       border-radius: var(--radius-pill);
-      background: rgba(15,20,40,0.8);
-      border: 1px solid rgba(173,182,235,0.6);
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(206, 210, 230, 0.9);
       font-size: 11px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -84,11 +116,27 @@
       margin-bottom: 10px;
     }
 
+    .hero-pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #31c27c;
+      box-shadow: 0 0 0 4px rgba(49, 194, 124, 0.32);
+    }
+
     .hero-title {
       font-size: 30px;
       line-height: 1.15;
       font-weight: 700;
       margin-bottom: 8px;
+      letter-spacing: 0.01em;
+    }
+
+    .hero-title-gradient {
+      background: linear-gradient(135deg, #1f2a78, #3849ff, #ff7fd5);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
 
     .hero-subtitle {
@@ -103,7 +151,7 @@
       flex-wrap: wrap;
       gap: 10px;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .btn {
@@ -118,38 +166,63 @@
       gap: 8px;
       white-space: nowrap;
       transition:
-        background 0.18s ease-out,
-        box-shadow 0.18s ease-out,
-        transform 0.08s ease-out;
+        background 0.2s ease-out,
+        box-shadow 0.2s ease-out,
+        transform 0.12s ease-out,
+        color 0.2s ease-out;
       text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      will-change: transform, box-shadow;
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, #8fa2ff, #f6a9ff);
-      color: #05070b;
-      box-shadow: 0 14px 32px rgba(107, 95, 203, 0.55);
+      background: linear-gradient(135deg, #4f6bff, #ff7fd5);
+      color: #ffffff;
+      box-shadow:
+        0 14px 32px rgba(79, 107, 255, 0.45),
+        0 0 0 1px rgba(255, 255, 255, 0.4);
+    }
+
+    .btn-primary::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.45), transparent 65%);
+      opacity: 0;
+      transition: opacity 0.22s ease-out;
+      pointer-events: none;
     }
 
     .btn-secondary {
-      background: rgba(15,20,40,0.9);
+      background: rgba(255, 255, 255, 0.9);
       color: var(--text-muted);
-      border: 1px solid rgba(173,182,235,0.6);
+      border: 1px solid rgba(206, 210, 230, 0.9);
+      box-shadow: 0 4px 14px rgba(141, 153, 190, 0.25);
     }
 
     .btn:hover {
       transform: translateY(-1px);
-      box-shadow: 0 16px 36px rgba(0,0,0,0.8);
+      box-shadow:
+        0 18px 40px rgba(79, 107, 255, 0.38),
+        0 0 0 1px rgba(255, 255, 255, 0.75);
+    }
+
+    .btn-primary:hover::after {
+      opacity: 1;
     }
 
     .btn:active {
       transform: translateY(0);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.7);
+      box-shadow:
+        0 9px 22px rgba(79, 107, 255, 0.35),
+        0 0 0 1px rgba(255, 255, 255, 0.7);
     }
 
     @keyframes install-pulse {
-      0%   { transform: translateY(0) scale(1); box-shadow: 0 14px 32px rgba(107, 95, 203, 0.55); }
-      50%  { transform: translateY(-1px) scale(1.02); box-shadow: 0 18px 40px rgba(107, 95, 203, 0.7); }
-      100% { transform: translateY(0) scale(1); box-shadow: 0 14px 32px rgba(107, 95, 203, 0.55); }
+      0%   { transform: translateY(0) scale(1); box-shadow: 0 14px 32px rgba(79, 107, 255, 0.45); }
+      50%  { transform: translateY(-1px) scale(1.03); box-shadow: 0 20px 44px rgba(79, 107, 255, 0.7); }
+      100% { transform: translateY(0) scale(1); box-shadow: 0 14px 32px rgba(79, 107, 255, 0.45); }
     }
 
     .btn-primary.attention {
@@ -162,14 +235,15 @@
       font-style: italic;
     }
 
-    .hero-right {
-      position: relative;
-      z-index: 1;
-      border-radius: 20px;
-      background: rgba(10,12,24,0.9);
-      border: 1px solid rgba(173,182,235,0.6);
-      padding: 12px 12px 10px;
-      box-shadow: 0 18px 42px rgba(0,0,0,0.9);
+    .hero-right-card {
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(206, 210, 230, 0.9);
+      box-shadow:
+        0 18px 46px rgba(96, 112, 170, 0.25),
+        0 0 0 1px rgba(255, 255, 255, 0.9);
+      padding: 11px 12px 10px;
     }
 
     .hero-snippet-header {
@@ -190,15 +264,15 @@
       font-size: 11px;
       padding: 3px 9px;
       border-radius: var(--radius-pill);
-      background: rgba(143,162,255,0.14);
+      background: var(--accent-soft);
       color: var(--accent-strong);
-      border: 1px solid rgba(143,162,255,0.6);
+      border: 1px solid rgba(151, 166, 255, 0.7);
     }
 
     .hero-snippet {
-      background: rgba(15,20,40,0.96);
+      background: var(--surface-soft);
       border-radius: 14px;
-      border: 1px solid rgba(173,182,235,0.4);
+      border: 1px solid rgba(206, 210, 230, 0.9);
       padding: 8px 9px;
       font-size: 12px;
       color: var(--text-muted);
@@ -212,53 +286,104 @@
     }
 
     .shortcut-chip {
-      padding: 2px 8px;
+      padding: 3px 9px;
       border-radius: 999px;
-      background: rgba(143,162,255,0.18);
+      background: rgba(79, 107, 255, 0.1);
       color: var(--accent-strong);
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       font-size: 12px;
-      border: 1px solid rgba(143,162,255,0.6);
+      border: 1px solid rgba(79, 107, 255, 0.5);
     }
 
     .hero-snippet-input {
       flex: 1;
       border-radius: 999px;
       padding: 5px 10px;
-      border: 1px solid rgba(70, 84, 130, 0.8);
-      background: rgba(8,10,22,0.96);
+      border: 1px solid rgba(204, 210, 235, 0.9);
+      background: #fbfbff;
       color: var(--text);
       font-size: 12px;
       font-family: inherit;
       outline: none;
+      transition: border-color 0.18s ease-out, box-shadow 0.18s ease-out, background 0.18s ease-out;
     }
 
     .hero-snippet-input::placeholder {
       color: var(--text-muted);
     }
 
+    .hero-snippet-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(79, 107, 255, 0.3);
+      background: #ffffff;
+    }
+
     .hero-snippet-result {
       margin-top: 6px;
       padding: 6px 8px;
       border-radius: 10px;
-      border: 1px dashed rgba(173,182,235,0.5);
-      background: rgba(15,20,40,0.9);
+      border: 1px dashed rgba(206, 210, 230, 0.9);
+      background: #f4f5ff;
       font-size: 12px;
       white-space: pre-wrap;
+      color: var(--text-muted);
+      animation: fade-in-block 0.5s ease-out forwards;
+      opacity: 0;
+      transform: translateY(4px);
     }
 
+    @keyframes fade-in-block {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Секции */
+
     .section {
-      margin-top: 28px;
+      margin-top: 24px;
       border-radius: 22px;
-      border: 1px solid rgba(80, 88, 120, 0.8);
-      background: rgba(10, 12, 24, 0.96);
+      border: 1px solid rgba(206, 210, 230, 0.9);
+      background: var(--surface);
       padding: 18px 18px 16px;
+      box-shadow: 0 18px 48px rgba(120, 132, 190, 0.22);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(255, 255, 255, 0.7), transparent 55%),
+        radial-gradient(circle at 0% 100%, rgba(208, 222, 255, 0.65), transparent 60%);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .section-inner {
+      position: relative;
+      z-index: 1;
     }
 
     .section-title {
       font-size: 16px;
       font-weight: 600;
       margin-bottom: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .section-title-pill {
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(79, 107, 255, 0.07);
+      color: var(--accent-strong);
+      border: 1px solid rgba(151, 166, 255, 0.7);
     }
 
     .section-subtitle {
@@ -275,10 +400,12 @@
 
     .feature-card {
       border-radius: 16px;
-      border: 1px solid rgba(80, 88, 120, 0.9);
-      background: rgba(15, 18, 34, 0.96);
+      border: 1px solid rgba(206, 210, 230, 0.9);
+      background: rgba(255, 255, 255, 0.9);
       padding: 10px 11px 9px;
       font-size: 13px;
+      position: relative;
+      overflow: hidden;
       transition:
         transform 0.16s ease-out,
         box-shadow 0.18s ease-out,
@@ -286,11 +413,25 @@
         background 0.18s ease-out;
     }
 
+    .feature-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.7), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.2s ease-out;
+      pointer-events: none;
+    }
+
     .feature-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 14px 34px rgba(0,0,0,0.8);
-      border-color: rgba(143,162,255,0.85);
-      background: rgba(20, 24, 46, 0.98);
+      box-shadow: 0 14px 34px rgba(123, 135, 195, 0.35);
+      border-color: rgba(151, 166, 255, 0.9);
+      background: #ffffff;
+    }
+
+    .feature-card:hover::before {
+      opacity: 1;
     }
 
     .feature-title {
@@ -300,150 +441,6 @@
 
     .feature-text {
       color: var(--text-muted);
-    }
-
-    .chat-demo {
-      margin-top: 28px;
-    }
-
-    .chat-demo-shell {
-      margin-top: 10px;
-      display: flex;
-      justify-content: center;
-    }
-
-    .chat-window {
-      width: 100%;
-      max-width: 460px;
-      border-radius: 22px;
-      border: 1px solid rgba(80, 88, 120, 0.9);
-      background: radial-gradient(circle at 0% 0%, rgba(143,162,255,0.2), transparent 55%),
-                  radial-gradient(circle at 100% 100%, rgba(66,179,195,0.18), transparent 55%),
-                  rgba(10, 12, 24, 0.96);
-      box-shadow: 0 22px 52px rgba(0,0,0,0.9);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .chat-header {
-      padding: 10px 12px 8px;
-      border-bottom: 1px solid rgba(80, 88, 120, 0.8);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .chat-header-title {
-      font-size: 13px;
-      font-weight: 600;
-    }
-
-    .chat-header-status {
-      font-size: 11px;
-      color: var(--text-muted);
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .chat-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #35b77a;
-      box-shadow: 0 0 0 4px rgba(53,183,122,0.3);
-    }
-
-    .chat-messages {
-      padding: 10px 10px 8px;
-      max-height: 260px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      font-size: 13px;
-    }
-
-    .bubble {
-      max-width: 82%;
-      padding: 7px 9px;
-      border-radius: 13px;
-      position: relative;
-      display: inline-flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .bubble-meta {
-      font-size: 10px;
-      color: var(--text-muted);
-    }
-
-    .bubble-text {
-      white-space: pre-wrap;
-      line-height: 1.4;
-    }
-
-    .bubble-incoming {
-      align-self: flex-start;
-      background: rgba(18, 22, 40, 0.96);
-      border: 1px solid rgba(120,130,180,0.9);
-    }
-
-    .bubble-outgoing {
-      align-self: flex-end;
-      background: linear-gradient(135deg, rgba(143,162,255,0.96), rgba(246,169,255,0.96));
-      color: #05070b;
-      border: 1px solid rgba(200,210,255,0.9);
-    }
-
-    .bubble-outgoing .bubble-meta {
-      color: rgba(5, 7, 11, 0.7);
-    }
-
-    .bubble-outgoing-faded {
-      opacity: 0.3;
-    }
-
-    .chat-input-row {
-      padding: 8px 10px 8px;
-      border-top: 1px solid rgba(80, 88, 120, 0.8);
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .chat-input {
-      flex: 1;
-      border-radius: 999px;
-      padding: 7px 11px;
-      border: 1px solid rgba(80, 88, 120, 0.9);
-      background: rgba(10, 12, 24, 0.98);
-      color: var(--text);
-      font: inherit;
-      font-size: 13px;
-      outline: none;
-    }
-
-    .chat-input::placeholder {
-      color: var(--text-muted);
-    }
-
-    .chat-input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(92,124,255,0.4);
-    }
-
-    .chat-send-btn {
-      padding-inline: 14px;
-    }
-
-    .chat-hint {
-      padding: 0 10px 10px;
-      font-size: 11px;
-      color: var(--text-muted);
-      font-style: italic;
     }
 
     .footnote {
@@ -466,9 +463,6 @@
       .hero-title {
         font-size: 24px;
       }
-      .chat-window {
-        max-width: 100%;
-      }
     }
   </style>
 </head>
@@ -477,10 +471,14 @@
     <section class="hero">
       <div class="hero-left">
         <div class="hero-pill">
+          <span class="hero-pill-dot"></span>
           <span>SNIPPET EXPANDER</span>
           <span>шорткаты для автоответов</span>
         </div>
-        <h1 class="hero-title">Печатай коротко. Отвечай развёрнуто.</h1>
+        <h1 class="hero-title">
+          Печатай коротко.<br />
+          <span class="hero-title-gradient">Отвечай развёрнуто.</span>
+        </h1>
         <p class="hero-subtitle">
           Придумай шорткат — например, <code>привет1</code> — и получи длинный, аккуратный ответ в любом поле ввода.
         </p>
@@ -502,148 +500,114 @@
       </div>
 
       <div class="hero-right">
-        <div class="hero-snippet-header">
-          <div class="hero-snippet-title">Мини‑демо</div>
-          <div class="hero-snippet-badge">Шаг 1 → Шаг 2</div>
-        </div>
-        <div class="hero-snippet">
-          <div class="hero-snippet-row">
-            <span class="shortcut-chip">привет1</span>
-            <input
-              id="demoInput"
-              class="hero-snippet-input"
-              type="text"
-              placeholder="Напечатай: привет1"
-            />
+        <div class="hero-right-card">
+          <div class="hero-snippet-header">
+            <div class="hero-snippet-title">Мини‑демо</div>
+            <div class="hero-snippet-badge">шаг 1 → шаг 2</div>
           </div>
-          <div id="demoResult" class="hero-snippet-result">
-            Шаблон развернётся здесь — попробуй набрать шорткат.
+          <div class="hero-snippet">
+            <div class="hero-snippet-row">
+              <span class="shortcut-chip">привет1</span>
+              <input
+                id="demoInput"
+                class="hero-snippet-input"
+                type="text"
+                placeholder="Напечатай: привет1"
+              />
+            </div>
+            <div id="demoResult" class="hero-snippet-result">
+              Шаблон развернётся здесь — попробуй набрать шорткат.
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <section id="how" class="section">
-      <h2 class="section-title">Как это работает</h2>
-      <p class="section-subtitle">Три простых шага, чтобы не печатать одно и то же.</p>
-      <div class="features-grid">
-        <article class="feature-card">
-          <div class="feature-title">1. Создаёшь шаблон</div>
-          <p class="feature-text">
-            В настройках расширения задаёшь шорткат (например, <code>спасибо1</code>) и полный текст ответа.
-          </p>
-        </article>
-        <article class="feature-card">
-          <div class="feature-title">2. Пишешь шорткат</div>
-          <p class="feature-text">
-            В любом поле ввода набираешь шорткат как обычное слово. Расширение следит только за последним словом.
-          </p>
-        </article>
-        <article class="feature-card">
-          <div class="feature-title">3. Получаешь готовый текст</div>
-          <p class="feature-text">
-            Шорткат автоматически разворачивается в шаблон, а курсор аккуратно остаётся после текста — можно дописать пару слов.
-          </p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2 class="section-title">Фишки для повседневной работы</h2>
-      <p class="section-subtitle">Для поддержки, фриланса, продаж и просто длинных переписок.</p>
-      <div class="features-grid">
-        <article class="feature-card">
-          <div class="feature-title">Работает «везде»</div>
-          <p class="feature-text">
-            Поддерживаются обычные поля, многострочные текстовые области и rich‑text‑редакторы (contenteditable).
-          </p>
-        </article>
-        <article class="feature-card">
-          <div class="feature-title">Синхронизация по Google</div>
-          <p class="feature-text">
-            Ты можешь войти через Google и синхронизировать шорткаты между устройствами через snippetexpander.com.
-          </p>
-        </article>
-        <article class="feature-card">
-          <div class="feature-title">Экспорт и импорт</div>
-          <p class="feature-text">
-            Выгружай все шаблоны в JSON, делись с командой и импортируй готовые наборы для разных проектов.
-          </p>
-        </article>
-        <article class="feature-card">
-          <div class="feature-title">Демо‑шорткаты</div>
-          <p class="feature-text">
-            В пару кликов добавь готовые примеры (привет1, спасибо1), чтобы сразу почувствовать, как всё работает.
-          </p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section chat-demo">
-      <h2 class="section-title">Мини‑чат: шорткат в действии</h2>
-      <p class="section-subtitle">
-        Представь обычный чат поддержки. Пиши шорткат — и смотри, как он разворачивается в аккуратный ответ.
-      </p>
-
-      <div class="chat-demo-shell">
-        <div class="chat-window">
-          <div class="chat-header">
-            <div class="chat-header-title">Чат с клиентом</div>
-            <div class="chat-header-status">
-              <span class="chat-dot"></span>
-              онлайн
-            </div>
-          </div>
-          <div id="chatMessages" class="chat-messages">
-            <div class="bubble bubble-incoming">
-              <div class="bubble-meta">Клиент · 10:21</div>
-              <div class="bubble-text">
-                Здравствуйте! Сколько времени занимает ответ поддержки?
-              </div>
-            </div>
-            <div class="bubble bubble-outgoing bubble-outgoing-faded">
-              <div class="bubble-meta">Ты · 10:22</div>
-              <div class="bubble-text">
-                привет1
-              </div>
-            </div>
-          </div>
-          <div class="chat-input-row">
-            <input
-              id="chatInput"
-              class="chat-input"
-              type="text"
-              placeholder="Например: привет1, спасибо1..."
-            />
-            <button id="chatSendBtn" class="btn btn-primary chat-send-btn" type="button">
-              Отправить
-            </button>
-          </div>
-          <div class="chat-hint">
-            Попробуй набрать <code>привет1</code> или <code>спасибо1</code> — снизу появится развёрнутый ответ.
-          </div>
+      <div class="section-inner">
+        <h2 class="section-title">
+          Как это работает
+          <span class="section-title-pill">3 простых шага</span>
+        </h2>
+        <p class="section-subtitle">Не печатай одно и то же руками — пусть за тебя это сделают шорткаты.</p>
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="feature-title">1. Создаёшь шаблон</div>
+            <p class="feature-text">
+              В настройках расширения задаёшь шорткат (например, <code>спасибо1</code>) и полный текст ответа для него.
+            </p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-title">2. Пишешь шорткат</div>
+            <p class="feature-text">
+              В любом поле ввода набираешь шорткат как обычное слово. Расширение следит только за последним словом.
+            </p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-title">3. Получаешь готовый текст</div>
+            <p class="feature-text">
+              Шорткат автоматически разворачивается в шаблон, а курсор остаётся после текста — можно дописать пару слов.
+            </p>
+          </article>
         </div>
       </div>
     </section>
 
     <section class="section">
-      <h2 class="section-title">Приватность и контроль</h2>
-      <p class="section-subtitle">
-        Snippet Expander не шпионит за твоими страницами — он просто подставляет текст, который ты сам заранее задал.
-      </p>
-      <div class="features-grid">
-        <article class="feature-card">
-          <div class="feature-title">Локальное хранение</div>
-          <p class="feature-text">
-            Шаблоны живут в твоём браузере. На сервер отправляются только шорткаты и тексты для синхронизации, когда ты это включаешь.
-          </p>
-        </article>
-        <article class="feature-card">
-          <div class="feature-title">Прозрачный синк</div>
-          <p class="feature-text">
-            В профиле видно, когда была последняя синхронизация, сколько шорткатов и сколько уже реально использовалось.
-          </p>
-        </article>
+      <div class="section-inner">
+        <h2 class="section-title">
+          Для кого это удобно
+          <span class="section-title-pill">каждый день</span>
+        </h2>
+        <p class="section-subtitle">
+          Всё, что ты отвечаешь чаще одного раза — кандидат в шорткат. Несколько примеров для вдохновения.
+        </p>
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="feature-title">Поддержка и сервис</div>
+            <p class="feature-text">
+              Повторы вроде «Здравствуйте! На связи поддержка…» превращаются в пары символов. Больше времени на нестандартные задачи.
+            </p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-title">Фриланс и проекты</div>
+            <p class="feature-text">
+              Отправляй брифы, стандартные ответы по оплате и сроки одним шорткатом, вместо копипасты из заметок.
+            </p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-title">Продажи и лиды</div>
+            <p class="feature-text">
+              Быстро отвечай на типовые вопросы про цену, условия и доставку, а дальше веди диалог уже лично.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-inner">
+        <h2 class="section-title">
+          Приватность и контроль
+          <span class="section-title-pill">без магии, всё честно</span>
+        </h2>
+        <p class="section-subtitle">
+          Snippet Expander не шпионит за твоими страницами — он просто подставляет текст, который ты сам заранее задал.
+        </p>
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="feature-title">Локальное хранение</div>
+            <p class="feature-text">
+              Шаблоны живут в твоём браузере. На сервер отправляются только шорткаты и тексты для синхронизации, если ты включишь синк.
+            </p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-title">Прозрачный синк</div>
+            <p class="feature-text">
+              В профиле расширения видно, когда была последняя синхронизация, сколько шорткатов и сколько уже реально использовалось.
+            </p>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -730,102 +694,6 @@
           demoResult.textContent = expandedText;
         } else if (!value) {
           demoResult.textContent = 'Шаблон развернётся здесь — попробуй набрать шорткат.';
-        }
-      });
-    })();
-
-    // Мини-чат: развёртывание привет1/спасибо1
-    (function () {
-      const chatInput = document.getElementById('chatInput');
-      const chatSendBtn = document.getElementById('chatSendBtn');
-      const chatMessages = document.getElementById('chatMessages');
-      if (!chatInput || !chatSendBtn || !chatMessages) return;
-
-      const shortcuts = {
-        'привет1': [
-          'Здравствуйте!',
-          'На связи агент Поддержки.',
-          'Благодарим, что дождались нас! Ответ задержался из-за высокого спроса, но теперь всё внимание — вам.'
-        ].join('\n'),
-        'спасибо1': [
-          'Спасибо за обращение!',
-          'Мы получили ваше сообщение и вернёмся с ответом в ближайшее время.'
-        ].join('\n')
-      };
-
-      function formatTime(date) {
-        const h = String(date.getHours()).padStart(2, '0');
-        const m = String(date.getMinutes()).padStart(2, '0');
-        return `${h}:${m}`;
-      }
-
-      function addOutgoing(message, expanded) {
-        const now = new Date();
-        const timeLabel = `Ты · ${formatTime(now)}`;
-
-        const shortcutBubble = document.createElement('div');
-        shortcutBubble.className = 'bubble bubble-outgoing bubble-outgoing-faded';
-        shortcutBubble.innerHTML = `
-          <div class="bubble-meta">${timeLabel}</div>
-          <div class="bubble-text">${message}</div>
-        `;
-        chatMessages.appendChild(shortcutBubble);
-
-        const fullBubble = document.createElement('div');
-        fullBubble.className = 'bubble bubble-outgoing';
-        fullBubble.style.opacity = '0';
-        fullBubble.style.transform = 'translateY(4px) scale(0.97)';
-        fullBubble.innerHTML = `
-          <div class="bubble-meta">${timeLabel}</div>
-          <div class="bubble-text">${expanded}</div>
-        `;
-        chatMessages.appendChild(fullBubble);
-
-        setTimeout(() => {
-          fullBubble.style.transition = 'opacity 0.18s ease-out, transform 0.18s ease-out';
-          fullBubble.style.opacity = '1';
-          fullBubble.style.transform = 'translateY(0) scale(1)';
-        }, 80);
-
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-      }
-
-      function addPlainOutgoing(message) {
-        const now = new Date();
-        const timeLabel = `Ты · ${formatTime(now)}`;
-
-        const bubble = document.createElement('div');
-        bubble.className = 'bubble bubble-outgoing';
-        bubble.innerHTML = `
-          <div class="bubble-meta">${timeLabel}</div>
-          <div class="bubble-text">${message}</div>
-        `;
-        chatMessages.appendChild(bubble);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-      }
-
-      function handleSend() {
-        const raw = chatInput.value;
-        const text = raw.trim();
-        if (!text) return;
-
-        const lower = text.toLowerCase();
-        const expanded = shortcuts[lower];
-
-        if (expanded) {
-          addOutgoing(text, expanded);
-        } else {
-          addPlainOutgoing(text);
-        }
-
-        chatInput.value = '';
-      }
-
-      chatSendBtn.addEventListener('click', handleSend);
-      chatInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-          e.preventDefault();
-          handleSend();
         }
       });
     })();
