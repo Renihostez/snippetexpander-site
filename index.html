@@ -9,17 +9,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f6f7ff;
-      --bg-soft: #eef3ff;
-      --surface: rgba(255, 255, 255, 0.9);
-      --surface-soft: rgba(255, 255, 255, 0.86);
-      --border: rgba(204, 210, 235, 0.9);
-      --text: #141322;
-      --text-muted: #70738a;
-      --accent: #4f6bff;
-      --accent-strong: #2944d6;
-      --accent-pink: #ff7fd5;
-      --accent-soft: rgba(79, 107, 255, 0.08);
+      --bg: #f5f3ff;
+      --bg-strong: #eae5ff;
+      --clay-surface: #fdfbff;
+      --clay-surface-strong: #ffffff;
+      --clay-shadow: #cdc6ff;
+      --clay-highlight: #ffffff;
+      --text: #201c3a;
+      --text-muted: #7a7695;
+      --accent: #6a5bff;
+      --accent-2: #ff8ac2;
+      --accent-soft: #ece8ff;
       --radius-xl: 28px;
       --radius-pill: 999px;
     }
@@ -35,21 +35,28 @@
       font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at 0% 0%, #ffe9f7 0%, transparent 55%),
-        radial-gradient(circle at 100% 0%, #e1f1ff 0%, transparent 55%),
-        linear-gradient(180deg, #f6f7ff 0%, #eef3ff 45%, #fdfbff 100%);
+        radial-gradient(circle at 0% 0%, #ffe4f5 0%, transparent 55%),
+        radial-gradient(circle at 100% 0%, #dfebff 0%, transparent 55%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-strong) 40%, var(--bg) 100%);
       padding: 32px 20px 40px;
       -webkit-font-smoothing: antialiased;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
     }
 
     a {
-      color: var(--accent-strong);
+      color: var(--accent);
       text-decoration: none;
     }
 
     .layout {
-      max-width: 1060px;
-      margin: 0 auto;
+      width: 100%;
+      max-width: 1120px;
+      min-height: calc(100vh - 64px);
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
       opacity: 0;
       transform: translateY(10px);
       animation: layout-in 0.5s ease-out forwards;
@@ -62,97 +69,94 @@
       }
     }
 
-    /* HERO */
-
-    .hero {
-      position: relative;
-      border-radius: 34px;
-      border: 1px solid var(--border);
-      background:
-        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.95), transparent 60%),
-        radial-gradient(circle at 120% 0%, rgba(187, 206, 255, 0.8), transparent 60%),
-        var(--surface);
-      box-shadow:
-        0 28px 80px rgba(60, 80, 155, 0.25),
-        0 0 0 1px rgba(255, 255, 255, 0.9);
-      padding: 26px 26px 24px;
+    .row {
       display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-      gap: 30px;
-      margin-bottom: 30px;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 22px;
+    }
+
+    .row-bottom {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 22px;
+      flex: 1;
+    }
+
+    .clay {
+      background: var(--clay-surface);
+      border-radius: var(--radius-xl);
+      box-shadow:
+        18px 18px 36px rgba(141, 127, 255, 0.3),
+        -10px -10px 26px #ffffff,
+        inset 0 0 0 0 rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(217, 207, 255, 0.8);
+      position: relative;
       overflow: hidden;
-      isolation: isolate;
     }
 
-    .hero-bg-blob {
+    .clay::before {
+      content: "";
       position: absolute;
-      width: 460px;
-      height: 460px;
+      inset: -40%;
       background:
-        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.95), transparent 60%),
-        radial-gradient(circle at 100% 0%, rgba(166, 194, 255, 0.95), transparent 60%),
-        radial-gradient(circle at 0% 100%, rgba(255, 189, 228, 0.75), transparent 65%);
-      filter: blur(36px);
-      opacity: 0.8;
-      top: -140px;
-      right: -160px;
-      border-radius: 50%;
-      animation: blob-move 16s ease-in-out infinite alternate;
+        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.9), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(210, 196, 255, 0.7), transparent 60%);
+      opacity: 0.7;
       pointer-events: none;
-      z-index: -1;
     }
 
-    @keyframes blob-move {
-      0% {
-        transform: translate3d(0, 0, 0) scale(1);
-      }
-      50% {
-        transform: translate3d(-30px, 20px, 0) scale(1.08);
-      }
-      100% {
-        transform: translate3d(-10px, 40px, 0) scale(1.02);
-      }
-    }
-
-    .hero-left,
-    .hero-right {
+    .clay-inner {
       position: relative;
       z-index: 1;
+    }
+
+    /* HERO LEFT */
+
+    .hero-panel {
+      padding: 24px 24px 22px;
     }
 
     .hero-pill {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 4px 12px;
+      padding: 5px 13px;
       border-radius: var(--radius-pill);
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(204, 210, 235, 0.95);
+      background: #fefbff;
+      border: 1px solid rgba(217, 207, 255, 0.9);
       font-size: 11px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--accent-strong);
-      margin-bottom: 12px;
+      color: var(--accent);
+      margin-bottom: 14px;
+      box-shadow:
+        6px 6px 14px rgba(141, 127, 255, 0.25),
+        -4px -4px 10px #ffffff;
     }
 
     .hero-pill-dot {
-      width: 7px;
-      height: 7px;
+      width: 9px;
+      height: 9px;
       border-radius: 999px;
-      background: #31c27c;
-      box-shadow: 0 0 0 4px rgba(49, 194, 124, 0.3);
+      background: #35c27f;
+      box-shadow:
+        0 0 0 4px rgba(53, 194, 127, 0.3),
+        3px 3px 6px rgba(46, 142, 98, 0.5);
     }
 
     .hero-title {
-      font-size: 31px;
+      font-size: 32px;
       line-height: 1.15;
       font-weight: 700;
       margin-bottom: 10px;
-      letter-spacing: 0.01em;
+    }
+
+    .hero-title span {
+      display: inline-block;
     }
 
     .hero-title-gradient {
-      background: linear-gradient(135deg, #232c7b, #3849ff, #ff7fd5);
+      background: linear-gradient(135deg, #463be9, #6a5bff, #ff8ac2);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -161,7 +165,7 @@
     .hero-subtitle {
       font-size: 14px;
       color: var(--text-muted);
-      max-width: 440px;
+      max-width: 430px;
       margin-bottom: 18px;
     }
 
@@ -170,82 +174,7 @@
       flex-wrap: wrap;
       gap: 10px;
       align-items: center;
-      margin-bottom: 8px;
-    }
-
-    .btn {
-      font: inherit;
-      border-radius: var(--radius-pill);
-      padding: 9px 18px;
-      font-size: 13px;
-      border: none;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      white-space: nowrap;
-      transition:
-        background 0.22s ease-out,
-        box-shadow 0.22s ease-out,
-        transform 0.12s ease-out,
-        color 0.22s ease-out;
-      text-decoration: none;
-      position: relative;
-      overflow: hidden;
-      will-change: transform, box-shadow;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #4f6bff, #ff7fd5);
-      color: #ffffff;
-      box-shadow:
-        0 16px 40px rgba(79, 107, 255, 0.5),
-        0 0 0 1px rgba(255, 255, 255, 0.7);
-    }
-
-    .btn-primary::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.6), transparent 65%);
-      opacity: 0;
-      transition: opacity 0.22s ease-out;
-      pointer-events: none;
-    }
-
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.92);
-      color: var(--text-muted);
-      border: 1px solid rgba(204, 210, 235, 0.95);
-      box-shadow: 0 6px 18px rgba(145, 158, 200, 0.25);
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-      box-shadow:
-        0 20px 46px rgba(79, 107, 255, 0.45),
-        0 0 0 1px rgba(255, 255, 255, 0.9);
-    }
-
-    .btn-primary:hover::after {
-      opacity: 1;
-    }
-
-    .btn:active {
-      transform: translateY(0);
-      box-shadow:
-        0 10px 24px rgba(79, 107, 255, 0.4),
-        0 0 0 1px rgba(255, 255, 255, 0.8);
-    }
-
-    @keyframes install-pulse {
-      0%   { transform: translateY(0) scale(1); box-shadow: 0 16px 40px rgba(79, 107, 255, 0.5); }
-      50%  { transform: translateY(-1px) scale(1.03); box-shadow: 0 22px 54px rgba(79, 107, 255, 0.75); }
-      100% { transform: translateY(0) scale(1); box-shadow: 0 16px 40px rgba(79, 107, 255, 0.5); }
-    }
-
-    .btn-primary.attention {
-      animation: install-pulse 0.9s ease-out;
+      margin-bottom: 10px;
     }
 
     .hero-note {
@@ -254,150 +183,187 @@
       font-style: italic;
     }
 
-    .hero-right-card {
-      border-radius: 22px;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(204, 210, 235, 0.95);
-      box-shadow:
-        0 18px 50px rgba(96, 112, 170, 0.25),
-        0 0 0 1px rgba(255, 255, 255, 0.9);
-      padding: 12px 13px 10px;
-    }
-
-    .hero-snippet-header {
-      display: flex;
+    .btn {
+      font: inherit;
+      border-radius: var(--radius-pill);
+      padding: 10px 18px;
+      font-size: 13px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
       align-items: center;
-      justify-content: space-between;
-      margin-bottom: 8px;
+      gap: 8px;
+      white-space: nowrap;
+      transition:
+        transform 0.12s ease-out,
+        box-shadow 0.16s ease-out,
+        background 0.16s ease-out,
+        color 0.16s ease-out;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
     }
 
-    .hero-snippet-title {
+    .btn-primary {
+      background: linear-gradient(135deg, #6a5bff, #ff8ac2);
+      color: #fff;
+      box-shadow:
+        0 12px 24px rgba(106, 91, 255, 0.55),
+        inset 0 0 0 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-primary::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.7), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.2s ease-out;
+    }
+
+    .btn-secondary {
+      background: #f7f3ff;
+      color: var(--text-muted);
+      box-shadow:
+        8px 8px 18px rgba(163, 152, 232, 0.3),
+        -6px -6px 14px #ffffff,
+        inset 0 0 0 0 rgba(255, 255, 255, 0.4);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        0 16px 32px rgba(106, 91, 255, 0.6),
+        inset 0 0 0 0 rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-primary:hover::after {
+      opacity: 1;
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+      box-shadow:
+        0 8px 18px rgba(106, 91, 255, 0.5),
+        inset 0 0 0 0 rgba(0, 0, 0, 0.1);
+    }
+
+    @keyframes install-pulse {
+      0%   { transform: translateY(0) scale(1); box-shadow: 0 12px 24px rgba(106, 91, 255, 0.55); }
+      50%  { transform: translateY(-1px) scale(1.03); box-shadow: 0 18px 40px rgba(106, 91, 255, 0.75); }
+      100% { transform: translateY(0) scale(1); box-shadow: 0 12px 24px rgba(106, 91, 255, 0.55); }
+    }
+
+    .btn-primary.attention {
+      animation: install-pulse 0.9s ease-out;
+    }
+
+    /* HERO RIGHT — DEMO */
+
+    .hero-demo {
+      padding: 20px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .hero-demo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hero-demo-title {
       font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       color: var(--text-muted);
     }
 
-    .hero-snippet-badge {
+    .hero-demo-pill {
       font-size: 11px;
-      padding: 3px 9px;
+      padding: 4px 10px;
       border-radius: var(--radius-pill);
-      background: var(--accent-soft);
-      color: var(--accent-strong);
-      border: 1px solid rgba(151, 166, 255, 0.85);
+      background: #f6f1ff;
+      box-shadow:
+        6px 6px 14px rgba(163, 152, 232, 0.35),
+        -4px -4px 10px #ffffff,
+        inset 0 0 0 0 rgba(255, 255, 255, 0.5);
+      color: var(--accent);
     }
 
-    .hero-snippet {
-      background: var(--surface-soft);
-      border-radius: 14px;
-      border: 1px solid rgba(204, 210, 235, 0.95);
-      padding: 8px 9px;
+    .hero-demo-body {
+      border-radius: 20px;
+      padding: 10px 10px 9px;
+      background: #fdfbff;
+      box-shadow:
+        inset 6px 6px 10px rgba(217, 207, 255, 0.7),
+        inset -6px -6px 10px rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(225, 218, 255, 0.9);
       font-size: 12px;
       color: var(--text-muted);
     }
 
-    .hero-snippet-row {
+    .hero-demo-row {
       display: flex;
       align-items: center;
-      gap: 6px;
-      margin-bottom: 6px;
+      gap: 8px;
+      margin-bottom: 8px;
     }
 
     .shortcut-chip {
-      padding: 3px 9px;
+      padding: 4px 10px;
       border-radius: 999px;
-      background: rgba(79, 107, 255, 0.12);
-      color: var(--accent-strong);
+      background: linear-gradient(145deg, #f2ecff, #ffffff);
+      border: 1px solid rgba(204, 195, 255, 0.9);
+      box-shadow:
+        5px 5px 10px rgba(165, 152, 232, 0.45),
+        -3px -3px 8px #ffffff;
+      color: var(--accent);
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       font-size: 12px;
-      border: 1px solid rgba(79, 107, 255, 0.6);
     }
 
-    .hero-snippet-input {
+    .hero-demo-input {
       flex: 1;
       border-radius: 999px;
-      padding: 5px 10px;
-      border: 1px solid rgba(204, 210, 235, 0.95);
-      background: #fbfbff;
+      padding: 7px 12px;
+      border: none;
+      background: linear-gradient(145deg, #f3ecff, #ffffff);
+      box-shadow:
+        inset 4px 4px 6px rgba(210, 200, 255, 0.9),
+        inset -4px -4px 6px rgba(255, 255, 255, 0.9);
       color: var(--text);
+      font: inherit;
       font-size: 12px;
-      font-family: inherit;
       outline: none;
-      transition:
-        border-color 0.18s ease-out,
-        box-shadow 0.18s ease-out,
-        background 0.18s ease-out;
     }
 
-    .hero-snippet-input::placeholder {
+    .hero-demo-input::placeholder {
       color: var(--text-muted);
     }
 
-    .hero-snippet-input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(79, 107, 255, 0.3);
-      background: #ffffff;
-    }
-
-    .hero-snippet-result {
-      margin-top: 6px;
-      padding: 6px 8px;
-      border-radius: 10px;
-      border: 1px dashed rgba(204, 210, 235, 0.95);
-      background: #f4f5ff;
-      font-size: 12px;
+    .hero-demo-result {
+      border-radius: 18px;
+      padding: 8px 9px;
+      background: linear-gradient(145deg, #f3ecff, #ffffff);
+      box-shadow:
+        inset 5px 5px 9px rgba(210, 200, 255, 0.9),
+        inset -5px -5px 9px rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(225, 218, 255, 0.9);
       white-space: pre-wrap;
-      color: var(--text-muted);
-      opacity: 0;
-      transform: translateY(4px);
-      animation: result-in 0.6s ease-out forwards;
-    }
-
-    @keyframes result-in {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      transition:
+        opacity 0.25s ease-out,
+        transform 0.25s ease-out;
+      opacity: 0.9;
+      transform: translateY(2px);
     }
 
     /* SECTIONS */
 
     .section {
-      margin-top: 26px;
-      border-radius: 24px;
-      border: 1px solid rgba(204, 210, 235, 0.95);
-      background: var(--surface);
-      padding: 18px 18px 16px;
-      box-shadow: 0 20px 52px rgba(120, 132, 190, 0.22);
-      position: relative;
-      overflow: hidden;
-      opacity: 0;
-      transform: translateY(12px);
-      transition:
-        opacity 0.5s ease-out,
-        transform 0.5s ease-out;
-    }
-
-    .section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .section::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background:
-        radial-gradient(circle at 100% 0%, rgba(255, 255, 255, 0.8), transparent 55%),
-        radial-gradient(circle at 0% 100%, rgba(208, 222, 255, 0.7), transparent 60%);
-      opacity: 0.6;
-      pointer-events: none;
-    }
-
-    .section-inner {
-      position: relative;
-      z-index: 1;
+      border-radius: var(--radius-xl);
+      padding: 20px 20px 18px;
     }
 
     .section-title {
@@ -406,16 +372,19 @@
       margin-bottom: 6px;
       display: inline-flex;
       align-items: center;
-      gap: 7px;
+      gap: 8px;
     }
 
     .section-title-pill {
       font-size: 11px;
-      padding: 2px 7px;
+      padding: 3px 8px;
       border-radius: 999px;
-      background: rgba(79, 107, 255, 0.07);
-      color: var(--accent-strong);
-      border: 1px solid rgba(151, 166, 255, 0.8);
+      background: #f7f2ff;
+      border: 1px solid rgba(217, 207, 255, 0.9);
+      box-shadow:
+        5px 5px 12px rgba(163, 152, 232, 0.3),
+        -4px -4px 10px #ffffff;
+      color: var(--accent);
     }
 
     .section-subtitle {
@@ -431,39 +400,39 @@
     }
 
     .feature-card {
-      border-radius: 16px;
-      border: 1px solid rgba(204, 210, 235, 0.95);
-      background: rgba(255, 255, 255, 0.96);
-      padding: 10px 11px 9px;
+      border-radius: 22px;
+      padding: 11px 12px 10px;
+      background: #fdfbff;
+      border: 1px solid rgba(217, 207, 255, 0.9);
+      box-shadow:
+        10px 10px 20px rgba(163, 152, 232, 0.4),
+        -7px -7px 18px #ffffff,
+        inset 0 0 0 0 rgba(255, 255, 255, 0.6);
       font-size: 13px;
-      position: relative;
-      overflow: hidden;
       transition:
-        transform 0.16s ease-out,
-        box-shadow 0.18s ease-out,
-        border-color 0.18s ease-out,
-        background 0.18s.ease-out;
-    }
-
-    .feature-card::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.9), transparent 60%);
-      opacity: 0;
-      transition: opacity 0.2s ease-out;
-      pointer-events: none;
+        transform 0.12s ease-out,
+        box-shadow 0.18s ease-out;
     }
 
     .feature-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 14px 34px rgba(123, 135, 195, 0.35);
-      border-color: rgba(151, 166, 255, 0.9);
-      background: #ffffff;
+      box-shadow:
+        12px 12px 24px rgba(163, 152, 232, 0.6),
+        -8px -8px 20px #ffffff,
+        inset 0 0 0 0 rgba(255, 255, 255, 0.7);
     }
 
-    .feature-card:hover::before {
-      opacity: 1;
+    .feature-tag {
+      font-size: 11px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: #f8f2ff;
+      border: 1px solid rgba(217, 207, 255, 0.9);
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 6px;
     }
 
     .feature-title {
@@ -476,182 +445,189 @@
     }
 
     .footnote {
-      margin-top: 20px;
       font-size: 11px;
       color: var(--text-muted);
       text-align: center;
+      margin-top: 8px;
     }
 
-    @media (max-width: 880px) {
-      .hero {
+    /* SCROLL-FADE для секций */
+
+    .clay.section-fade {
+      opacity: 0;
+      transform: translateY(12px);
+      transition:
+        opacity 0.45s ease-out,
+        transform 0.45s ease-out;
+    }
+
+    .clay.section-fade.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 960px) {
+      .row,
+      .row-bottom {
         grid-template-columns: minmax(0, 1fr);
       }
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 640px) {
       body {
-        padding: 18px 12px 24px;
+        padding: 18px 12px 28px;
       }
       .hero-title {
-        font-size: 24px;
+        font-size: 26px;
+      }
+      .hero-panel {
+        padding: 18px 18px 14px;
+      }
+      .hero-demo {
+        padding: 16px 16px 14px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="layout">
-    <section class="hero">
-      <div class="hero-bg-blob"></div>
-
-      <div class="hero-left">
-        <div class="hero-pill">
-          <span class="hero-pill-dot"></span>
-          <span>SNIPPET EXPANDER</span>
-          <span>шорткаты для автоответов</span>
-        </div>
-        <h1 class="hero-title">
-          Печатай коротко.<br />
-          <span class="hero-title-gradient">Отвечай развёрнуто.</span>
-        </h1>
-        <p class="hero-subtitle">
-          Придумай шорткат — например, <code>привет1</code> — и получи длинный, аккуратный ответ в любом поле ввода.
-        </p>
-        <div class="hero-actions">
-          <a
-            href="#"
-            id="installBtn"
-            class="btn btn-primary"
-          >
-            Установить в Chrome
-          </a>
-          <a href="#how" class="btn btn-secondary">
-            Как это работает
-          </a>
-        </div>
-        <p class="hero-note">
-          Работает в чатах, почте, CRM и любых полях ввода в браузере.
-        </p>
-      </div>
-
-      <div class="hero-right">
-        <div class="hero-right-card">
-          <div class="hero-snippet-header">
-            <div class="hero-snippet-title">Мини‑демо</div>
-            <div class="hero-snippet-badge">шаг 1 → шаг 2</div>
+  <main class="layout">
+    <div class="row">
+      <!-- HERO LEFT -->
+      <section class="clay hero-panel">
+        <div class="clay-inner">
+          <div class="hero-pill">
+            <span class="hero-pill-dot"></span>
+            <span>SNIPPET EXPANDER</span>
+            <span>CLAY‑UI</span>
           </div>
-          <div class="hero-snippet">
-            <div class="hero-snippet-row">
+          <h1 class="hero-title">
+            Печатай коротко.<br />
+            <span class="hero-title-gradient">Отвечай как человек.</span>
+          </h1>
+          <p class="hero-subtitle">
+            Придумай шорткат — например, <code>привет1</code> — и разворачивай его в длинный, вежливый ответ в один удар по клавиатуре.
+          </p>
+          <div class="hero-actions">
+            <a href="#" id="installBtn" class="btn btn-primary">
+              Установить в Chrome
+            </a>
+            <a href="#how" class="btn btn-secondary">
+              Как это работает
+            </a>
+          </div>
+          <p class="hero-note">
+            Подходит для переписок в поддержке, фрилансе, продажах и повседневных чатах.
+          </p>
+        </div>
+      </section>
+
+      <!-- HERO RIGHT DEMO -->
+      <aside class="clay hero-demo">
+        <div class="clay-inner">
+          <div class="hero-demo-header">
+            <div class="hero-demo-title">Мини‑демо шортката</div>
+            <div class="hero-demo-pill">привет1 → готовый текст</div>
+          </div>
+          <div class="hero-demo-body">
+            <div class="hero-demo-row">
               <span class="shortcut-chip">привет1</span>
               <input
                 id="demoInput"
-                class="hero-snippet-input"
+                class="hero-demo-input"
                 type="text"
                 placeholder="Напечатай: привет1"
               />
             </div>
-            <div id="demoResult" class="hero-snippet-result">
+            <div id="demoResult" class="hero-demo-result">
               Шаблон развернётся здесь — попробуй набрать шорткат.
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </aside>
+    </div>
 
-    <section id="how" class="section">
-      <div class="section-inner">
-        <h2 class="section-title">
-          Как это работает
-          <span class="section-title-pill">3 простых шага</span>
-        </h2>
-        <p class="section-subtitle">Не печатай одно и то же руками — пусть за тебя это сделают шорткаты.</p>
-        <div class="features-grid">
-          <article class="feature-card">
-            <div class="feature-title">1. Создаёшь шаблон</div>
-            <p class="feature-text">
-              В настройках расширения задаёшь шорткат (например, <code>спасибо1</code>) и полный текст ответа для него.
-            </p>
-          </article>
-          <article class="feature-card">
-            <div class="feature-title">2. Пишешь шорткат</div>
-            <p class="feature-text">
-              В любом поле ввода набираешь шорткат как обычное слово. Расширение следит только за последним словом.
-            </p>
-          </article>
-          <article class="feature-card">
-            <div class="feature-title">3. Получаешь готовый текст</div>
-            <p class="feature-text">
-              Шорткат автоматически разворачивается в шаблон, а курсор остаётся после текста — можно дописать пару слов.
-            </p>
-          </article>
+    <div class="row-bottom">
+      <!-- HOW IT WORKS -->
+      <section id="how" class="clay section section-fade">
+        <div class="clay-inner">
+          <h2 class="section-title">
+            Как это работает
+            <span class="section-title-pill">3 простых шага</span>
+          </h2>
+          <p class="section-subtitle">
+            Задаёшь шаблон один раз — потом используешь его многократно, как будто это встроенная команда браузера.
+          </p>
+          <div class="features-grid">
+            <article class="feature-card">
+              <div class="feature-tag">шаг 1</div>
+              <div class="feature-title">Создаёшь шорткат</div>
+              <p class="feature-text">
+                В настройках расширения задаёшь, что <code>привет1</code> — это приветствие, а <code>спасибо1</code> — аккуратное завершение диалога.
+              </p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-tag">шаг 2</div>
+              <div class="feature-title">Пишешь его в поле</div>
+              <p class="feature-text">
+                В любом поле ввода печатаешь шорткат как обычное слово. Расширение следит только за последним словом, не ломая остальной текст.
+              </p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-tag">шаг 3</div>
+              <div class="feature-title">Получаешь готовый текст</div>
+              <p class="feature-text">
+                Шорткат автоматически разворачивается в заранее подготовленный ответ, а курсор остаётся после текста — можно дописать пару фраз.
+              </p>
+            </article>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section">
-      <div class="section-inner">
-        <h2 class="section-title">
-          Для кого это удобно
-          <span class="section-title-pill">каждый день</span>
-        </h2>
-        <p class="section-subtitle">
-          Всё, что ты отвечаешь чаще одного раза — кандидат в шорткат. Несколько примеров для вдохновения.
-        </p>
-        <div class="features-grid">
-          <article class="feature-card">
-            <div class="feature-title">Поддержка и сервис</div>
-            <p class="feature-text">
-              Повторы вроде «Здравствуйте! На связи поддержка…» превращаются в пары символов. Больше времени на нестандартные задачи.
-            </p>
-          </article>
-          <article class="feature-card">
-            <div class="feature-title">Фриланс и проекты</div>
-            <p class="feature-text">
-              Отправляй брифы, стандартные ответы по оплате и сроки одним шорткатом, вместо копипасты из заметок.
-            </p>
-          </article>
-          <article class="feature-card">
-            <div class="feature-title">Продажи и лиды</div>
-            <p class="feature-text">
-              Быстро отвечай на типовые вопросы про цену, условия и доставку, а дальше веди диалог уже лично.
-            </p>
-          </article>
+      <!-- USE CASES / PRIVACY -->
+      <section class="clay section section-fade">
+        <div class="clay-inner">
+          <h2 class="section-title">
+            Для кого и зачем
+            <span class="section-title-pill">и немного приватности</span>
+          </h2>
+          <p class="section-subtitle">
+            Всё, что ты отвечаешь чаще одного раза, можно превратить в «глиняную кнопку» — мягкий, но очень быстрый шорткат.
+          </p>
+          <div class="features-grid">
+            <article class="feature-card">
+              <div class="feature-tag">поддержка</div>
+              <div class="feature-title">Ответы без конвейера</div>
+              <p class="feature-text">
+                Типовые приветствия, «спасибо за обращение» и пояснения по срокам превращаются в пару символов, а тон всё равно остаётся живым и человеческим.
+              </p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-tag">фриланс</div>
+              <div class="feature-title">Брифы и условия</div>
+              <p class="feature-text">
+                Повторяющиеся сообщения про формат работы, оплату и дедлайны отправляются одним шорткатом, вместо копипасты из заметок.
+              </p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-tag">приватность</div>
+              <div class="feature-title">Шаблоны у тебя, не у нас</div>
+              <p class="feature-text">
+                Тексты живут в твоём браузере. Синхронизация по Google — опциональная штука, только если ты сам её включишь в расширении.
+              </p>
+            </article>
+          </div>
         </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-inner">
-        <h2 class="section-title">
-          Приватность и контроль
-          <span class="section-title-pill">без магии, всё честно</span>
-        </h2>
-        <p class="section-subtitle">
-          Snippet Expander не шпионит за твоими страницами — он просто подставляет текст, который ты сам заранее задал.
-        </p>
-        <div class="features-grid">
-          <article class="feature-card">
-            <div class="feature-title">Локальное хранение</div>
-            <p class="feature-text">
-              Шаблоны живут в твоём браузере. На сервер отправляются только шорткаты и тексты для синхронизации, если ты включишь синк.
-            </p>
-          </article>
-          <article class="feature-card">
-            <div class="feature-title">Прозрачный синк</div>
-            <p class="feature-text">
-              В профиле расширения видно, когда была последняя синхронизация, сколько шорткатов и сколько уже реально использовалось.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
 
     <p class="footnote">
-      Программу сделал гений — Сметанин Даниил Сергеевич. tg: <a href="https://t.me/renihostez" target="_blank" rel="noopener noreferrer">@renihostez</a>
+      Программу сделал гений — Сметанин Даниил Сергеевич. tg:
+      <a href="https://t.me/renihostez" target="_blank" rel="noopener noreferrer">@renihostez</a>
     </p>
-  </div>
+  </main>
 
   <script>
-    // Пульсация кнопки установки
+    // Пульсация clay‑кнопки установки
     (function () {
       const installBtn = document.getElementById('installBtn');
       if (!installBtn) return;
@@ -665,7 +641,7 @@
       setInterval(pulse, 9000);
     })();
 
-    // Плавный скролл к блоку "Как это работает"
+    // Плавный скролл к "Как это работает"
     (function () {
       const link = document.querySelector('a[href="#how"]');
       const howSection = document.getElementById('how');
@@ -677,7 +653,7 @@
       });
     })();
 
-    // Демо: печать шортката в hero
+    // Демо: печать шортката в clay‑карточке
     (function () {
       const demoInput = document.getElementById('demoInput');
       const demoResult = document.getElementById('demoResult');
@@ -706,8 +682,10 @@
             setTimeout(() => {
               demoInput.value = '';
               demoResult.textContent = expandedText;
+              demoResult.style.opacity = '1';
+              demoResult.style.transform = 'translateY(0)';
             }, 260);
-            setTimeout(typeShortcutLoop, 4000);
+            setTimeout(typeShortcutLoop, 3800);
           }
         }
 
@@ -726,15 +704,19 @@
         const value = demoInput.value.trim();
         if (value === shortcut) {
           demoResult.textContent = expandedText;
+          demoResult.style.opacity = '1';
+          demoResult.style.transform = 'translateY(0)';
         } else if (!value) {
           demoResult.textContent = 'Шаблон развернётся здесь — попробуй набрать шорткат.';
+          demoResult.style.opacity = '0.9';
+          demoResult.style.transform = 'translateY(2px)';
         }
       });
     })();
 
-    // Scroll-анимация появления секций
+    // Scroll‑анимация clay‑секций
     (function () {
-      const sections = Array.from(document.querySelectorAll('.section'));
+      const sections = Array.from(document.querySelectorAll('.section-fade'));
       if (!('IntersectionObserver' in window) || !sections.length) return;
 
       const observer = new IntersectionObserver(
@@ -746,9 +728,7 @@
             }
           });
         },
-        {
-          threshold: 0.12
-        }
+        { threshold: 0.12 }
       );
 
       sections.forEach((section) => observer.observe(section));
