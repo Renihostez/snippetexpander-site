@@ -6,10 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Шрифты: заголовки — Outfit, текст — Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap"
+  //fonts.googleapis.com">
+  //fonts.gstatic.com" crossorigin>
+  //fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap"
     rel="stylesheet"
   >
 
@@ -44,7 +43,27 @@
       padding: 0;
     }
 
-    /* Анимированный пастельный фон */
+    /* Видеофон */
+    .video-bg {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      z-index: -2;
+    }
+
+    .video-bg video {
+      position: absolute;
+      min-width: 100%;
+      min-height: 100%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(6px) saturate(1.2);
+      opacity: 0.6;
+      transform: scale(1.03);
+    }
+
+    /* Анимированный пастельный градиент поверх видео */
     body {
       min-height: 100vh;
       font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -57,6 +76,8 @@
       display: flex;
       justify-content: center;
       align-items: stretch;
+      position: relative;
+      z-index: 0;
     }
 
     @keyframes gradientMove {
@@ -511,7 +532,7 @@
       color: var(--text-muted);
     }
 
-    /* Низ — два блока в clay */
+    /* Низ — два блока в clay + scroll reveal */
 
     .bottom {
       padding: 14px 18px 16px;
@@ -531,6 +552,17 @@
         inset 4px 4px 10px rgba(255, 255, 255, 0.95);
       padding: 11px 12px 10px;
       font-size: 12px;
+
+      opacity: 0;
+      transform: translateY(20px);
+      transition:
+        opacity 0.6s ease-out,
+        transform 0.6s ease-out;
+    }
+
+    .bottom-card.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .bottom-title {
@@ -621,6 +653,14 @@
   </style>
 </head>
 <body>
+  <!-- Видеофон: поменяй src на своё видео (лучше .mp4, короткий луп) -->
+  <div class="video-bg">
+    <video autoplay muted loop playsinline>
+      <source src="background.mp4" type="video/mp4">
+      <!-- fallback если видео не загрузится -->
+    </video>
+  </div>
+
   <main class="page">
     <header class="bar">
       <div class="logo">
@@ -654,7 +694,7 @@
             <span class="hero-title-accent">Отвечай как бренд.</span>
           </h1>
           <p class="hero-subtitle">
-            Задай пару шорткатов — <code>привет1</code>, <code>оплата1</code>, <code>сроки1</code> — и Snippet Expander превратит их в аккуратные, живые ответы в любых полях ввода.
+            Задай пару шорткатов — de>привет1</code>, de>оплата1</code>, de>сроки1</code> — и Snippet Expander превратит их в аккуратные, живые ответы в любых полях ввода.
           </p>
           <div class="hero-actions">
             <a href="#" id="installBtn" class="btn btn-primary">
@@ -677,7 +717,7 @@
             <article class="hero-chip">
               <div class="hero-chip-label">шаг 2</div>
               <div class="hero-chip-title">Придумай короткие коды</div>
-              <p>Например, <code>привет1</code>, <code>оплата1</code>, <code>бриф1</code> — так проще запомнить и набрать.</p>
+              <p>Например, de>привет1</code>, de>оплата1</code>, de>бриф1</code> — так проще запомнить и набрать.</p>
             </article>
             <article class="hero-chip">
               <div class="hero-chip-label">шаг 3</div>
@@ -857,6 +897,28 @@
           result.style.transform = 'translateY(0)';
         }
       });
+    })();
+
+    // Scroll‑анимация появления нижних блоков (IntersectionObserver)
+    (function () {
+      const cards = Array.from(document.querySelectorAll('.bottom-card'));
+      if (!('IntersectionObserver' in window) || !cards.length) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          threshold: 0.25
+        }
+      );
+
+      cards.forEach((card) => observer.observe(card));
     })();
   </script>
 </body>
